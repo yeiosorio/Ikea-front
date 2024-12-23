@@ -1,0 +1,55 @@
+# Default values for product.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+project: ikso-aggregator # team name
+business: replenishment-aggregator # type of app (storage, blogic, etc)
+tier: backend
+fullnameOverride: replenishment-aggregator
+
+networking:
+  containerPort: 80
+  protocol: TCP
+  servicePort: 80
+
+configmap:
+  APP_ADDRESS: 0.0.0.0
+  APP_PORT: 80
+
+service:
+  type: ClusterIP # LoadBalancer/NodePort
+
+resources: {
+  requests: {
+    memory: "256Mi",
+    cpu: "200m"
+  },
+  limits: {
+    memory: "512Mi",
+    cpu: "500m"
+  }
+}
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/path: "/actuator/prometheus"
+  prometheus.io/port: "80"
+
+horizontalPodAutoscaler:
+  maxReplicas: 1
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 70
+
+livenessProbe:
+  path: /actuator/health
+  initialDelaySeconds: 90
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  path: /actuator
+  scheme: HTTP
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  failureThreshold: 3
+

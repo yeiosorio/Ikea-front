@@ -1,0 +1,48 @@
+<div (click)="modalClosed()" class="modal-wrapper" [ngClass]="[visible ? 'modal-wrapper--open' : 'modal-wrapper--close']" tabindex="-1">
+    <div class="modal-wrapper__backdrop modal-wrapper__backdrop--dark"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="-1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="-1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-lock-disabled="disabled">
+        <div (click)="stopPropagation($event)" aria-label="Accessibility header for a modal" class="sheets sheets--small sheets--preserve-alignment sheets--enter" aria-modal="true" role="dialog" tabindex="-1">
+            <div class="modal-header">
+                <button (click)="modalClosed()" type="button" class="btn btn--small btn--icon-primary-inverse modal-header__close" aria-label="Close modal">
+                    <span class="btn__inner">
+                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                            <use href="assets/svg/skapa.svg#cross"></use>
+                        </svg>
+                    </span>
+                </button>
+                <div class="modal-header__title-wrapper modal-header__title-wrapper--padded">
+                    <span class="modal-header__title">{{ textTitle }}</span>
+                </div>
+                <button *ngIf="backBtn" type="button" class="btn btn--small btn--icon-primary-inverse modal-header__back-button" aria-label="Back">
+                    <span class="btn__inner">
+                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="m3.999 11.9997 8 8.0011 1.4143-1.4141-5.5859-5.5866H20v-2H7.8273l5.5871-5.5868-1.4142-1.4143-8.0012 8.0007z"></path>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <div class="sheets__content-wrapper" #scroll tabindex="0">
+                <div>
+                    <div class="modal-body">
+                        <ng-content select="[slot=content-body]"></ng-content>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="(textBtnPrimary !== '') || (textBtnSecondary !== '')" class="modal-footer">
+                <button *ngIf="textBtnPrimary !== ''" type="button" class="btn btn--primary">
+                    <span class="btn__inner">
+                        <span class="btn__label">{{ textBtnPrimary }}</span>
+                    </span>
+                </button>
+                <button *ngIf="textBtnSecondary !== ''" type="button" class="btn btn--secondary">
+                    <span class="btn__inner">
+                        <span class="btn__label">{{ textBtnSecondary }}</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="-1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+</div>

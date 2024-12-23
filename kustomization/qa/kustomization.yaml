@@ -1,0 +1,40 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../base
+
+commonLabels:
+  business: IOMCAggregator
+  env: qa
+  instance: "${PROJECT_NAME}"
+  name: chart
+  project: ikso-aggregator
+  tier: frontend
+commonAnnotations:
+  release-name: "${PROJECT_NAME}"
+  release-namespace: qa
+configMapGenerator:
+  - name: "${PROJECT_NAME}-configmap"
+    env: .env
+    literals:
+      - PUBSUB_PROJECT_ID=ikso-corp-aggregator-qa
+
+generatorOptions:
+  disableNameSuffixHash: true
+namespace: qa
+
+patchesStrategicMerge:
+  - env-vars-configmap.yaml
+  - probe-config.yaml
+  - mount-sa-secret.yaml
+  - resources.yaml
+
+resources:
+  - hpa-config.yaml
+  - service-account-secret.yaml
+
+images:
+  - name: foo/bar
+    newName: ${CI_REGISTRY_IMAGE}/${GCP_PROJECT_ID_QA}/${CI_PROJECT_NAME}/${CI_COMMIT_REF_SLUG}
+    newTag: "${CI_COMMIT_SHORT_SHA}"

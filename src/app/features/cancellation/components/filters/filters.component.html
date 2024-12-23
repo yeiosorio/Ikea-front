@@ -1,0 +1,91 @@
+<div (click)="closeFilter()" [ngClass]="[openFilterOrden ? 'active-menu' : '']"
+    class="container-filter">
+    <div class="content-filter">
+        <div (click)="stopPropagation($event)" class="container-block-filter">
+            <div class="content-block-filter">
+                <div class="container-aux">
+                    <div class="block-head">
+                        <h1>Filtrar y ordenar</h1>
+                        <div (click)="closeFilter()" class="skapa-close">
+                            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                <use href="assets/svg/skapa.svg#cross"></use>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="block-info">
+                        <div class="container-group-filter">
+                            <h3>Ordenar por</h3>
+                            <div class="container-list-info rtl-radio-group-skapa" dir="rtl">
+                                <div class="form-field">
+                                    <fieldset role="group" class="radio-button-group">
+                                        <div class="radio radio--subtle">
+                                            <input [(ngModel)]="optionsCheck.dateAscending" type="radio" name="orderBy" id="radio-101" value="false">
+                                            <span class="radio__symbol"></span>
+                                            <span class="radio__label">
+                                                <label for="radio-101" class="">Solicitud: la más nueva primero</label>
+                                            </span>
+                                        </div>
+                                        <div class="radio radio--subtle">
+                                            <input [(ngModel)]="optionsCheck.dateAscending" type="radio" name="orderBy" id="radio-102" value="true">
+                                            <span class="radio__symbol"></span>
+                                            <span class="radio__label">
+                                                <label for="radio-102" class="">Solicitud: la más antigua primero</label>
+                                            </span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-group-filter">
+                            <h3>Estado de la solicitud</h3>
+                            <div class="container-list-info rtl-radio-group-skapa" dir="rtl">
+                                <div class="form-field">
+                                    <fieldset role="group" class="radio-button-group">
+                                        <div class="radio radio--subtle">
+                                            <input [(ngModel)]="optionsCheck.status" type="radio" name="statusRadio" id="radio-201" value="APPROVED">
+                                            <span class="radio__symbol"></span>
+                                            <span class="radio__label">
+                                                <label for="radio-201" class="">Aprobado</label>
+                                            </span>
+                                        </div>
+                                        <div class="radio radio--subtle">
+                                            <input [(ngModel)]="optionsCheck.status" type="radio" name="statusRadio" id="radio-202" value="REJECTED">
+                                            <span class="radio__symbol"></span>
+                                            <span class="radio__label">
+                                                <label for="radio-202" class="">Rechazado</label>
+                                            </span>
+                                        </div>
+                                        <div class="radio radio--subtle">
+                                            <input [(ngModel)]="optionsCheck.status" type="radio" name="statusRadio" id="radio-203" value="PENDING">
+                                            <span class="radio__symbol"></span>
+                                            <span class="radio__label">
+                                                <label for="radio-203" class="">Pendiente</label>
+                                            </span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-btn">
+                        <button (click)="onFilterClean()" type="button" class="btn btn--secondary btn--fluid">
+                            <span class="btn__inner">
+                                <span class="btn__label">Borrar</span>
+                            </span>
+                        </button>
+                        <button (click)="onFilterUpdate()" type="button" class="btn btn--primary btn--fluid"
+                            [attr.disabled]="false ? '' : null">
+                            <span class="btn__inner">
+                                <span class="btn__label">Ver solicitudes</span>
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

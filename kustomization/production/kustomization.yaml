@@ -1,0 +1,44 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../base
+
+commonLabels:
+  business: IOMCAggregator
+  env: prod
+  instance: "${PROJECT_NAME}"
+  name: chart
+  project: ikso-aggregator
+  tier: backend
+commonAnnotations:
+  release-name: "${PROJECT_NAME}"
+  release-namespace: prod
+configMapGenerator:
+  - name: "${PROJECT_NAME}-configmap"
+    env: .env
+    literals:
+      - APP_PORT=8080
+      - CONFIRM_ORDERS_MODULE=false
+      - CREATE_ORDERS_MODULE=true
+      - GOOGLE_APPLICATION_CREDENTIALS=/var/secrets/google/key.json
+      - MS_REPLENISHMENT_URI=http://replenishment-mock:80
+      - PUBSUB_PROJECT_ID=ikso-corp-aggregator-prod
+generatorOptions:
+  disableNameSuffixHash: true
+namespace: prod
+
+patchesStrategicMerge:
+  - env-vars-configmap.yaml
+  - mount-sa-secret.yaml
+  - probe-config.yaml
+  - resources.yaml
+
+resources:
+  - service-account-secret.yaml
+  - hpa-config.yaml
+
+images:
+  - name: foo/bar
+    newName: ${CI_REGISTRY_IMAGE}/${GCP_PROJECT_ID_PROD}/${CI_PROJECT_NAME}/${CI_COMMIT_REF_SLUG}
+    newTag: "${CI_COMMIT_SHORT_SHA}"

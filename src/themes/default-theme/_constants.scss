@@ -1,0 +1,126 @@
+/**************** RESPONSIVE *********************/
+
+
+/*
+*   minxs       : menor a xs
+*   maxxs       : xs a sm
+*   xs          : menor a sm
+*   xsland      : landscape 320px a mobile-landscape
+*   sm          : sm a md
+*   md          : md a lg
+*   mdland      : landscape sm a tablet-landscape
+*   lg          : mayor a lg
+*   non-retina  : no retina
+*   retina      : retina
+*   num         : menor a cualquier numero que se ponga -> @include respond-to(1600){}
+*/
+
+$xs: 576px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$mobile-landscape: 480px;
+$tablet-landscape: 1024px;
+
+/**************** /RESPONSIVE *********************/
+
+
+/*** Dark theme Material Design ***/
+
+$ldark-status-bar: #000000;
+$ldark-app-bar: #212121;
+$ldark-background: #303030;
+$ldark-cards-dialogs: #424242;
+$ldark-primary-text: rgba(255, 255, 255, 1.00);
+$ldark-secundary-text: rgba(255, 255, 255, 0.70);
+$ldark-disabled-text: rgba(255, 255, 255, 0.50);
+$ldark-divider-text: rgba(255, 255, 255, 0.12);
+$ldark-divider: rgba(255, 255, 255, 0.38);
+$ldark-icon-active: rgba(0, 0, 0, 0.54);
+$ldark-icon-inactive: rgba(0, 0, 0, 0.38);
+
+/*** /Dark theme Material Design ***/
+
+
+/****** Light theme Material Design ******/
+
+$llight-status-bar: #e0e0e0;
+$llight-app-bar: #f5f5f5;
+$llight-background: #fafafa;
+$llight-cards-dialogs: #ffffff;
+$llight-primary-text: rgba(0, 0, 0, 0.87);
+$llight-secundary-text: rgba(0, 0, 0, 0.54);
+$llight-disabled-text: rgba(0, 0, 0, 0.38);
+$llight-divider-text: rgba(0, 0, 0, 0.12);
+$llight-divider: rgba(0, 0, 0, 0.38);
+$llight-icon-active: rgba(255, 255, 255, 1.00);
+$llight-icon-inactive: rgba(255, 255, 255, 0.50);
+
+/****** /Light theme Material Design ******/
+
+
+/********* Constants de fuente ***********/
+
+$font-DMSans: 'DM Sans', sans-serif;
+$font-Roboto: 'Roboto', sans-serif;
+
+:root{
+    --ikea-font: 'Noto IKEA', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+}
+
+/********* /Constants de fuente ***********/
+
+
+/********* PRINT WIDTH ***********/
+
+$width-print: 55mm;
+
+/********* /PRINT WIDTH ***********/
+
+
+/********* palette colors ***********/
+// $fbx-primary           : #1F1933;
+// $fbx-primary-light     : #55458C;
+// $fbx-primary-dark      : #272C3C;
+// $fbx-secondary         : #9768FF;
+// $fbx-secondary-light   : #9768FF;
+// $fbx-secondary-dark    : #6228E4;
+// $fbx-secundary-opacity : rgb(0, 205, 255, 0.15);
+// $fbx-accent            : #00CDFF;
+// $fbx-gris              : #F8F9FD;
+// $fbx-gris-light        : #F8F9FD;
+// $fbx-gris-dark         : #DCE3EC;
+// $fbx-gristwo           : #9F9FAF;
+// $fbx-gristwo-light     : #C5C5D9;
+// $fbx-gristwo-dark      : #747480;
+// $fbx-green             : #04BF7B;
+// $fbx-green-light       : #05D88B;
+// $fbx-green-dark        : #06AC6F;
+// $fbx-red               : #ED435D;
+// $fbx-red-light         : #FF637A;
+// $fbx-red-dark          : #B83145;
+// $fbx-warm              : #ED435D;
+// $fbx-success           : #08b82b;
+// $fbx-wait              : #ea7125;
+// $fbx-rejected          : #ff0000;
+// $fbx-disabled          : $llight-disabled-text; // naranja decolorado
+
+// $fbx-gray-menu         : #838495;
+// $fbx-primary-text      : $fbx-primary-dark; // negro
+// $fbx-secundary-text    : $llight-secundary-text; // gris
+// $fbx-title-text        : $ldark-primary-text; // blanco
+// $fbx-subtitle-text     : #9F9FAF; // subtitulos - texto caja
+// $fbx-input-text        : #99abbf; // inputs - Textos menu
+// $fbx-btn-disable       : #99abbf;
+// $fbx-btn-text          : #ffffff;
+// $fbx-tab-back-disable  : #eeeeee;
+
+// $fbx-divider           : $llight-divider;
+// $fbx-icon              : $llight-icon-active; // blanco
+
+// $fbx-background-white  : #ffffff;
+// $fbx-background-gris   : #ecf0f5;
+// $fbx-background-cliente: #F0F4F8;
+
+// $fbx-sombra-bottom     : 0 2px 5px rgba(0,0,0,.26);
+/********* /palette colors ***********/

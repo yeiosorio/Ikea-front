@@ -1,0 +1,13 @@
+.option-notification{
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.radio-button-group{
+    display: flex;
+    flex-direction: row;
+    .radio{
+        margin-right: 40px;
+    }
+}

@@ -1,0 +1,46 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+.block-body{
+    width: 96%;
+    margin: 0 auto 0 auto;
+    max-width: 1400px;
+    .container-dashboard{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 0 20px 0;
+        h1{
+            font-size: 36px;
+            line-height: 1.33;
+            color: $colour-text-dark;
+            text-align: center;
+            max-width: 738px;
+            margin: 0 0 60px 0;
+            user-select: none;
+        }
+        p{
+            font-size: 16px;
+            margin-bottom: 75px;
+        }
+        form{
+            .content-input{
+                margin-right: 0;
+                margin-bottom: 47px;
+                width: 442px;
+                // max-width: 96%;
+                .form-field{
+                    .input-field{
+                        .input-field__wrapper{
+                            background: white;
+                        }
+                    }
+                }
+            }
+            .content-button{
+                width: 123px;
+            }
+        }
+    }
+}

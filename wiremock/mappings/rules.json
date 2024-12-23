@@ -1,0 +1,32 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/orderDetail"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "order-detail.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/listStores"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "list-stores.json",
+        "headers": {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+<ng-container *ngIf="true; else loadingPageTemplate">
+    <ng-container *ngIf="true; else boxMessageTemplate">
+        <section class="container-cancellation">
+            <div class="content-home">
+
+
+                <!-------------------- BLOCK TITLE ----------------------->
+                <div class="block-ikea-container container-btn-head">
+                    <div class="content-return">
+                        <button (click)="returnReport()" aria-disabled="false" type="button" class="btn btn--small leading-icon btn--secondary">
+                            <span class="btn__inner">
+                                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#arrow-left"></use>
+                                </svg>
+                                <span class="btn__label">Volver</span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="content-close">
+                        <button (click)="closeReport()" type="button" class="btn btn--small btn--tertiary">
+                            <span class="btn__inner">
+                            <span class="btn__label">Cerrar sesión</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="container-title">
+                    <div class="block-ikea-container content-title">
+                        <h1>Órdenes Cybersource</h1>
+                        <p>Listado de órdenes tipificadas como riesgosas por el equipo de riesgo</p>
+                    </div>
+                </div>
+                <!-------------------- /BLOCK TITLE ----------------------->
+
+                
+                <!-------------------- BLOCK FILTERS ----------------------->
+                <div class="container-filters">
+                    <div class="block-ikea-container content-filters">
+                        <div class="block-top-filters">
+                            <div class="left-top-filters">
+                                <button (click)="openViewFilters()" [ngClass]="{'pill--active': ((filterData?.optionsCheck?.length ? 1:0) > 0)}" class="pill pill--small-mobile leading-icon" aria-pressed="true">
+                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon pill__icon" aria-hidden="true">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M6 5h2v1h12v2H8v1H6V8H4V6h2V5zm12 8h2v-2h-2v-1h-2v1H4v2h12v1h2v-1zm-5.9392 5H20v-2h-7.9392v-1h-2v1H4v2h6.0608v1h2v-1z" />
+                                    </svg>
+                                    <span class="pill__label">Filtrar</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-line-filters" [ngClass]="[true ? 'no-data' : '']"></div>
+                        <div *ngIf="(filterData?.optionsCheck?.length ? 1:0) > 0" class="block-bottom-filters">
+                            <div class="container-list-filters">
+                                <div *ngFor="let optionCheck of filterData.optionsCheck; let ixf = index" class="content-item-filter">
+                                    <button (click)="deleteFilter(optionCheck.code)" class="pill pill--small-mobile leading-icon pill--active" aria-pressed="true">
+                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon pill__icon" aria-hidden="true">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12.0002 13.4144L16.9499 18.3642L18.3642 16.9499L13.4144 12.0002L18.3642 7.05044L16.95 5.63623L12.0002 10.586L7.05044 5.63623L5.63623 7.05044L10.586 12.0002L5.63624 16.9499L7.05046 18.3642L12.0002 13.4144Z">
+                                            </path>
+                                        </svg>
+                                        <span class="pill__label">{{ optionCheck.text }}</span>
+                                    </button>
+                                </div>
+                                <div class="content-btn-clear">
+                                    <button (click)="deleteAllFilter()" class="pill pill--small-mobile" aria-pressed="true">
+                                        <span class="pill__label">Borrar todo</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-------------------- /BLOCK FILTERS ----------------------->
+
+                <ng-container *ngIf="listOrderFraud.length !== 0; else loadingPageTemplate">
+                    <ng-container *ngIf="listOrderFraud.length !== 0; else boxMessageTemplate">
+                        <div class="container-data-web">
+                            <div class="block-ikea-container content-data-web">
+                                <div class="block-table">
+                                    <div class="table table--inset sticky-table">
+                                        <table>
+                                            <thead class="table-header--sticky">
+                                                <tr>
+                                                    <th>Fecha de revisión</th>
+                                                    <th>Hora de revisión</th>
+                                                    <th>Orden eCommerce (IRW)</th>
+                                                    <th>
+                                                        Seguimiento ISO
+                                                        <div (mouseover)="tooltip = true" (mouseout)="tooltip = false" class="tooltip__container">
+                                                            <span class="tooltip tooltip--bottom">
+                                                                <button class="tooltip__trigger-button">
+                                                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon">
+                                                                        <path 
+                                                                            d="M13.25 7.25c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25S11.3096 6 12 6s1.25.5596 1.25 1.25zM11 18v-8h2v8h-2z" 
+                                                                            fill-rule="evenodd" 
+                                                                            clip-rule="evenodd">
+                                                                        </path>
+                                                                    </svg>
+                                                                </button>
+                                                                <span [ngClass]="{'tooltip__body--entering': tooltip}" class="tooltip__body tooltip__body--no-transition"  role="tooltip">
+                                                                    El ícono mostrado en cada fila es un link a la ISO correspondiente en IOMC.
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </th>
+                                                    <th class="orderStatus">Estado de la Orden</th>
+                                                    <th>-</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-body--striped">
+                                                <tr *ngFor="let orderCan of listOrderFraud">
+                                                    <ng-container *ngIf="true; else emptyTemplate">
+                                                        <td>{{ orderCan?.date | date: 'dd/MM/yyyy' }}</td>
+                                                        <td>{{ orderCan?.date | date: 'h:mm:ss' }}</td>
+                                                        <td>{{ orderCan?.merchantReferenceNumber }}</td>
+                                                        <td>
+                                                            <a *ngIf="orderCan?.orderId" [routerLink]="['/follow-up/resumen', orderCan?.orderId]" target="_blank" class="link">
+                                                                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                                                    <use href="assets/svg/skapa.svg#link-out"></use>
+                                                                </svg>
+                                                                {{ orderCan?.orderId }}
+                                                            </a>
+                                                            <a *ngIf="orderCan?.orderId === ''" (click)="visibleModal = true"  target="_blank" class="link">
+                                                                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                                                    <use href="assets/svg/skapa.svg#link-out"></use>
+                                                                </svg>
+                                                                {{ orderCan?.orderId }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ orderCan?.statusName }}</td>
+                                                        <td><a (click)="openViewDetail(orderCan)" class="link link-skapa">Ver detalle</a></td>
+                                                    </ng-container>
+                                                </tr>
+                                                <ng-template #emptyTemplate>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="block-pagination">
+                                    <div *ngIf="isLoading" class="content-loading-cancel">
+                                        <div class="storybook-container" dir="ltr">
+                                            <div class="storybook-readme-story">
+                                                <div>
+                                                    <div>
+                                                        <div style="padding: 20px; background: rgb(255, 255, 255);">
+                                                            <span class="loading loading--label-center" aria-live="polite">
+                                                                <span class="loading__ball loading__ball--large loading__ball--primary" aria-hidden="true"></span>
+                                                                <!-- <span aria-hidden="true" class="loading__text loading__text--fade-in">Cargando orden</span> -->
+                                                                <!-- <span class="loading__sr-only-text">Cargando orden</span> -->
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content-pagination">
+                                        <button *ngIf="visibleBtnAdd" (click)="nextPagination()" type="button" class="btn btn--primary" [attr.disabled]="false ? '' : null">
+                                            <span class="btn__inner">
+                                                <span class="btn__label">Mostrar más</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+            </div>
+        </section>
+
+    </ng-container>
+</ng-container>
+
+
+<!-------------------- BLOCK MENU FILTROS ----------------------->
+<app-filters #componentFilter
+[openFilterOrden]="visibleFilters"
+(filtersEvent)="refreshUpdateFiltersFraud($event)"
+(closeViewEvent)="closeViewFilters()"
+></app-filters>
+<!-------------------- /BLOCK MENU FILTROS ----------------------->
+
+
+<!-------------------- BLOCK DETALLE CANCEL ----------------------->
+<app-detail
+[orderCancel]="orderFraudDetail"
+[openDetailOrden]="visibleDetail"
+(closeViewEvent)="closeViewDetail()"
+(saveEvent)="refreshUpdateOrderFraud($event)"
+></app-detail>
+<!-------------------- /BLOCK DETALLE CANCEL ----------------------->
+
+<ng-template #loadingPageTemplate>
+    <ng-container *ngIf="isLoading else boxMessageTemplate">
+        <app-loading [minheight]="'200px'"></app-loading>
+    </ng-container>
+</ng-template>
+<ng-template #boxMessageTemplate>
+    <app-message
+        [messageObject]="errorMessage"
+    ></app-message>
+</ng-template>
+
+<app-sk-modal-prompt
+    [(visible)]="visibleModal"
+    [textTitle]="'No se encuentra ISO asociada a ese número IRW.'"
+    [textSubtitle]="''"
+    [textBtnPrimary]="'Entendido'"
+></app-sk-modal-prompt>

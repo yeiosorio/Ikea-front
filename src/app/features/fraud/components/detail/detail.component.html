@@ -1,0 +1,114 @@
+<div (click)="closeDetail()"
+    [ngClass]="[openDetailOrden ? 'active-menu' : '']" class="container-detail">
+    <div class="content-detail">
+        <div (click)="stopPropagation($event)" class="container-block-detail">
+            <div class="content-block-detail">
+                <ng-container *ngIf="(copyOrderCancel && !loadingOrder) else loadingTemplate">
+                    <div class="container-aux">
+                        <div class="block-head">
+                            <div class="skapa-close">
+                                <button (click)="closeDetail()" aria-disabled="false" type="button" class="btn btn--small btn--icon-tertiary">
+                                    <span class="btn__inner">
+                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                            <use href="assets/svg/skapa.svg#cross"></use>
+                                        </svg>
+                                        <span class="btn__label">cerrar</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <h1>Estado Orden {{ copyOrderCancel.merchantReferenceNumber }}</h1>
+                        </div>
+                        <div class="block-info">
+                            <div class="content-sk-message">
+                                <app-sk-inline-message
+                                [typeMessage]="'negative'"
+                                [textTitle]="copyOrderCancel.statusName"
+                                [textDescription]="''"
+                                ></app-sk-inline-message>
+                            </div>
+                            <ul class="list-info">
+                                <li class="item-info">
+                                    <div class="label-info">Orden eCommerce (IRW)</div>
+                                    <p class="text-info">{{ copyOrderCancel?.merchantReferenceNumber }}</p>
+                                </li>
+                                <li class="item-info">
+                                    <div class="label-info">Fecha de revisión</div>
+                                    <p class="text-info">{{ copyOrderCancel?.date | date: 'dd/MM/yyyy' }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="block-info">
+                            <!-- <h3>Datos del cliente</h3> -->
+                            <ul class="list-info">
+                                <li class="item-info">
+                                    <div class="label-info">Hora de revisión</div>
+                                    <p class="text-info">{{ copyOrderCancel?.date | date: 'h:mm:ss' }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- FIX: NO DEBE SER VISIBLE A MENOS QUE SEA UN ESTADO DE CANCELACION APROBADA O RECHAZADA -->
+                        <div *ngIf="visibleStatus" class="block-edition">
+                            <h3>Nuevo estado de la Orden</h3>
+
+                            <div class="select-notified">
+                                <div (click)="clickBtnOption01()" [ngClass]="[btnOption01]" class="option-select">
+                                    Riesgo asumido
+                                </div>
+                                <div (click)="clickBtnOption02()" [ngClass]="[btnOption02]" class="option-select">
+                                    Orden cancelada
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-btn">
+                            <button (click)="closeDetail()" type="button" class="btn btn--secondary btn--fluid"
+                                [attr.disabled]="false ? '' : null">
+                                <span class="btn__inner">
+                                    <span class="btn__label">Cancelar</span>
+                                </span>
+                            </button>
+                            <button (click)="saveStatus(copyOrderCancel?.merchantReferenceNumber+'')" type="button" class="btn btn--primary btn--fluid"
+                                [attr.disabled]="!btnSave ? '' : null">
+                                <span class="btn__inner">
+                                    <span class="btn__label">Actualizar estado</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #loadingTemplate>
+    <div class="storybook-container" dir="ltr">
+        <div class="storybook-readme-story">
+            <div>
+                <div>
+                    <div style="padding: 20px; background: rgb(255, 255, 255);">
+                        <span class="loading loading--label-center" aria-live="polite">
+                            <span class="loading__ball loading__ball--large loading__ball--primary" aria-hidden="true"></span>
+                            <span aria-hidden="true" class="loading__text loading__text--fade-in">Cargando orden</span>
+                            <span class="loading__sr-only-text">Cargando orden</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-sk-toast
+    [isOpen]="okUpdateMessage"
+    [text]="'El estado de la Orden se actualizó correctamente'"
+    [actionButtonText]="'Aceptar'"
+    (actionClick)="okUpdateMessage = false;"
+></app-sk-toast>
+<app-sk-toast
+    [isOpen]="errorUpdateMessage"
+    [text]="'No pudimos actualizar el estado de la Orden. Por favor vuelve a intentarlo.'"
+    [actionButtonText]="'Entendido'"
+    (actionClick)="errorUpdateMessage = false;"
+></app-sk-toast>
+

@@ -1,0 +1,144 @@
+<div (click)="closeDetail()"
+    [ngClass]="[openDetailOrden ? 'active-menu' : '']" class="container-detail">
+    <div class="content-detail">
+        <div (click)="stopPropagation($event)" class="container-block-detail">
+            <div class="content-block-detail">
+                <ng-container *ngIf="(copyOrderCancel && !loadingOrder) else loadingTemplate">
+                    <div class="container-aux">
+                        <div class="block-head">
+                            <div class="skapa-close">
+                                <button (click)="closeDetail()" aria-disabled="false" type="button" class="btn btn--small btn--icon-tertiary">
+                                    <span class="btn__inner">
+                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                            <use href="assets/svg/skapa.svg#cross"></use>
+                                        </svg>
+                                        <span class="btn__label">cerrar</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <h1>Detalle solicitud de cancelación</h1>
+                        </div>
+                        <div class="block-info">
+                            <div class="content-sk-message">
+                                <app-sk-inline-message
+                                [typeMessage]="skMessageType"
+                                [textTitle]="skMessageTitle"
+                                [textDescription]="skMessageDescription"
+                                ></app-sk-inline-message>
+                            </div>
+                            <ul class="list-info">
+                                <li class="item-info">
+                                    <div class="label-info">Nº Orden de compra</div>
+                                    <p class="text-info">
+                                        <a [routerLink]="['/follow-up/resumen', copyOrderCancel?.orderId]" target="_blank" class="link">{{ copyOrderCancel?.orderId }}
+                                            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                                <use href="assets/svg/skapa.svg#link-out"></use>
+                                            </svg>
+                                        </a>
+                                    </p>
+                                </li>
+                                <li class="item-info">
+                                    <div class="label-info">Fecha solicitud de cancelación</div>
+                                    <p class="text-info">{{ copyOrderCancel?.cancellationState?.cancellationRequested | date: 'dd/MM/yyyy' }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="block-info">
+                            <h3>Datos del cliente</h3>
+                            <ul class="list-info">
+                                <li class="item-info">
+                                    <div class="label-info">Nombre</div>
+                                    <p class="text-info">{{ copyOrderCancel?.deliveryInformation?.clientName }}</p>
+                                </li>
+                                <ng-container *ngIf="copyOrderCancel.deliveryInformation.authorizedPersons.length > 0">
+                                    <ng-container *ngFor="let person of copyOrderCancel.deliveryInformation.authorizedPersons; let i = index">
+                                        <ng-container *ngIf="person.contacts">
+                                            <ng-container *ngFor="let contact of person.contacts; let j = index">
+                                                <li *ngIf="contact.type === 'PHONE_NUMBER' || contact.type ==='Teléfono'" class="item-info">
+                                                    <div class="label-info">Teléfono de contacto</div>
+                                                    <p class="text-info">
+                                                        <a href="tel:{{ contact.value }}" class="link link-skapa">{{ contact.value }}</a>
+                                                    </p>
+                                                </li>
+                                                <li *ngIf="contact.type === 'EMAIL'" class="item-info">
+                                                    <div class="label-info">Email de contacto</div>
+                                                    <p class="text-info">
+                                                        <a href="mailto:{{ contact.value }}" class="link link-skapa">{{ contact.value }}</a>
+                                                    </p>
+                                                </li>
+                                                <li *ngIf="contact.type !== 'PHONE_NUMBER' && contact.type !=='Teléfono' && contact.type !== 'EMAIL'" class="item-info">
+                                                    <div class="label-info">Dato de contacto</div>
+                                                    <p class="text-info">{{ contact.value }}</p>
+                                                </li>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </ul>
+                        </div>
+                        <!-- FIX: NO DEBE SER VISIBLE A MENOS QUE SEA UN ESTADO DE CANCELACION APROBADA O RECHAZADA -->
+                        <div *ngIf="visibleNotify" class="block-edition">
+                            <h3>Estado notificación al cliente</h3>
+
+                            <div class="select-notified">
+                                <div (click)="clickBtnNoNotify()" [ngClass]="[btnNoNotify]" class="option-select">
+                                    No notificado
+                                </div>
+                                <div (click)="clickBtnNotify()" [ngClass]="[btnNotify]" class="option-select">
+                                    Notificado
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-btn">
+                            <button (click)="closeDetail()" *ngIf="!btnSave" type="button" class="btn btn--primary btn--fluid"
+                                [attr.disabled]="false ? '' : null">
+                                <span class="btn__inner">
+                                    <span class="btn__label">Aceptar</span>
+                                </span>
+                            </button>
+                            <button (click)="saveNotify(copyOrderCancel?.orderId+'')" *ngIf="btnSave" type="button" class="btn btn--primary btn--fluid"
+                                [attr.disabled]="false ? '' : null">
+                                <span class="btn__inner">
+                                    <span class="btn__label">Guardar y aceptar</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #loadingTemplate>
+    <div class="storybook-container" dir="ltr">
+        <div class="storybook-readme-story">
+            <div>
+                <div>
+                    <div style="padding: 20px; background: rgb(255, 255, 255);">
+                        <span class="loading loading--label-center" aria-live="polite">
+                            <span class="loading__ball loading__ball--large loading__ball--primary" aria-hidden="true"></span>
+                            <span aria-hidden="true" class="loading__text loading__text--fade-in">Cargando orden</span>
+                            <span class="loading__sr-only-text">Cargando orden</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-sk-toast
+    [isOpen]="okUpdateMessage"
+    [text]="'El estado de la Orden se actualizó correctamente'"
+    [actionButtonText]="'Aceptar'"
+    (actionClick)="okUpdateMessage = false;"
+></app-sk-toast>
+<app-sk-toast
+    [isOpen]="errorUpdateMessage"
+    [text]="'No pudimos actualizar el estado de la Orden. Por favor vuelve a intentarlo.'"
+    [actionButtonText]="'Entendido'"
+    (actionClick)="errorUpdateMessage = false;"
+></app-sk-toast>
+

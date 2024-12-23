@@ -1,0 +1,149 @@
+{
+  "reverse/reasons": {
+    "GET": {
+      "codeResponse": "200",
+      "delay": "100",
+      "responses": [
+        {
+          "statusCode": "200",
+          "headers": {
+            "request": {
+            },
+            "response": {
+              "Access-Control-Allow-Headers": "*"
+            }
+          },
+          "body": {
+            "motives": [
+              {
+                "name": "CALIDAD DEL PRODUCTO1",
+                "code": "05",
+                "submotive": [
+                  {
+                    "name": "PRODUCTO DEFECTUOSO3",
+                    "code": "03"
+                  },
+                  {
+                    "name": "PRODUCTO DEFECTUOSO4",
+                    "code": "04"
+                  }
+                ]
+              },
+              {
+                "name": "CALIDAD DEL PRODUCTO2",
+                "code": "06",
+                "submotive": [
+                  {
+                    "name": "PRODUCTO DEFECTUOSO6",
+                    "code": "06"
+                  },
+                  {
+                    "name": "PRODUCTO DEFECTUOSO7",
+                    "code": "07"
+                  }
+                ]
+              }
+            ],
+            "conditions": [
+              {
+                "name": "PERFECTO ESTADO",
+                "code": "01",
+                "type": "typePerfect"
+              },
+              {
+                "name": "NO PERFECTO ESTADO",
+                "code": "02",
+                "type": "noTypePerfect"
+              }
+            ]
+          }
+        },
+        {
+          "statusCode": "400",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "404",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "412",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "500",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "503",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        }
+      ]
+    }
+  }
+}

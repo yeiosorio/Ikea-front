@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${PROJECT_NAME}
+spec:
+  selector:
+    matchLabels:
+      app: ${PROJECT_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${PROJECT_NAME}
+    spec:
+      containers:
+        - image: foo/bar
+          name: ${PROJECT_NAME}
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
+      imagePullSecrets:
+        - name: regcred

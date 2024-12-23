@@ -1,0 +1,242 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+@import './default-theme/base';
+
+
+
+// PILL
+@include respondto(xs, sm) {
+    .pill{
+        &.pill--small-mobile {
+            font-size: 0.75rem;
+            line-height: 1.3333333333;
+            height: 2.5rem;
+            padding: 0 1.5rem;
+            &.leading-icon {
+                padding-left: 1rem;
+            }
+            &.trailing-icon {
+                padding-right: 1rem;
+            }
+        }
+        // .pill--thumbnail.pill--small-mobile {
+        //     padding-left: 0.5rem;
+        // }
+        // .pill--thumbnail.pill--small-mobile .pill__thumbnail {
+        //     width: 1.5rem;
+        //     height: 1.5rem;
+        // }
+        .pill.pill--icon.pill--small-mobile {
+            padding: 0 0.4375rem;
+        }
+    }
+}
+@include respondto(md) {}
+@include respondto(lg) {}
+
+
+// LINK
+a.link-skapa{
+    color: $colour-primary-accent !important;
+    &:hover,
+    &:active{
+        color: $colour-primary-accent-dark;
+    }
+}
+
+// GROUP RADIO BTN
+.rtl-radio-group-skapa{
+    &[dir=rtl]{
+        .form-field{
+            .radio-button-group{
+                .radio{
+                    width: 100%;
+                    &.radio-double-text{
+                        align-items: center;
+                        input[type=radio]{}
+                        .radio__symbol{}
+                        .radio__label{
+                            label{
+                                display: flex;
+                                flex-direction: column;
+                                .title-radio{
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    color: $colour-text-dark;
+                                    direction: ltr;
+                                }
+                                .subtitle-radio{
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    color: $colour-text-default;
+                                    direction: ltr;
+                                }
+                            }
+                        }
+                    }
+                    &.radio--subtle{
+                        .radio__label{
+                            label{
+                                float: left;
+                            }
+                        }
+                    }
+                    input[type="radio"]{
+                        left: auto;
+                        right: -0.625rem;
+                    }
+                    .radio__symbol{}
+                    .radio__label{
+                        flex: 1;
+                        padding-left: 0;
+                        padding-right: 1rem;
+                        label{
+                            direction: ltr;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// GROUP CHECK BTN
+.rtl-check-group-skapa{
+    &[dir=rtl]{
+        .form-field{
+            .checkbox-group{
+                .checkbox{
+                    input[type="checkbox"]{
+                        left: auto;
+                        right: -0.625rem;
+                    }
+                    .checkbox__symbol{}
+                    .checkbox__label{
+                        flex: 1;
+                        padding-left: 0;
+                        padding-right: 1rem;
+                        label{
+                            direction: ltr;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Material calendar Header
+.ikea-calendar{
+    &.mat-calendar{
+        mat-calendar-header{
+            .mat-calendar-header{
+                .mat-calendar-controls{
+                    position: relative;
+                    &:after{
+                        content: '';
+                        position: absolute;
+                        left: 40px;
+                        top: 0;
+                        height: 100%;
+                        width: calc(100% - 80px);
+                        // background-color: rgba(red, .25);
+                        z-index: 1;
+                    }
+                    .mat-button{
+                        &.mat-calendar-period-button{
+                            flex: 1;
+                            order: 2;
+                            .mat-button-wrapper{
+                                span{}
+                                svg.mat-calendar-arrow{
+                                    display: none;
+                                    polygon{}
+                                }
+                            }
+                            .mat-ripple{}
+                            .mat-button-focus-overlay{}
+                        }
+                    }
+                    .mat-calendar-spacer{
+                        flex: 0;
+                        order: 3;
+                    }
+                    .mat-icon-button{
+                        border: 1px solid #dfdfdf;
+                        &:hover{
+                            border-color: #929292;
+                        }
+                        &:active{
+                            border-color: #111111;
+                        }
+                        &.mat-calendar-previous-button{
+                            order: 1;
+                        }
+                        &.mat-calendar-next-button{
+                            order: 4;
+                        }
+                        .mat-button-wrapper{}
+                        .mat-ripple{}
+                        .mat-button-focus-overlay{}
+                    }
+                }
+            }
+        }
+        mat-calendar-content{
+            mat-month-view{
+                .mat-calendar-table{
+                    .mat-calendar-table-header{
+                        tr{
+                            th{
+                                &.mat-calendar-table-header-divider{}
+                                .mat-calendar-abbr{}
+                            }
+                        }
+                    }
+                    .mat-calendar-body{
+                        tr{
+                            td.mat-calendar-body-label{}
+                            td.mat-calendar-body-cell{
+                                .mat-calendar-body-cell-content{}
+                                .mat-calendar-body-cell-preview{}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// INPUT SEARCH
+.ikso-input-search{
+    &.input-field{
+        .input-field__wrapper{
+            .input-field__border{
+                border-radius: 52px;
+            }
+        }
+    }
+}
+
+// EXPANDER PARAGRAPH
+.ikso-expander-paragraph{
+    &.expander{
+        &.ikso-show{
+            .expander__content{
+                margin-bottom: 0px;
+                >.div{
+                    p{}
+                }
+            }
+            .expander__btn{}
+        }
+        .expander__content{
+            >.div{
+                p{}
+            }
+        }
+        .expander__btn{}
+    }
+}

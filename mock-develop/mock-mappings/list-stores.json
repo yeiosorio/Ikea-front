@@ -1,0 +1,140 @@
+{
+  "listStores": {
+    "GET": {
+      "codeResponse": "200",
+      "delay": "3000",
+      "responses": [
+        {
+          "statusCode": "200",
+          "headers": {
+            "request": {
+            },
+            "response": {
+              "Access-Control-Allow-Headers": "*"
+            }
+          },
+          "body": [
+            {
+              "nodeId": "7b687a54-3017-11eb-adc1-0242ac120002",
+              "nodeName": "Centro de Distribución de Lo Espejo",
+              "nodeType": "WAREHOUSE",
+              "address": {
+                "country": "Chile",
+                "state": "Región Metropolitana",
+                "county": "Santiago",
+                "district": "Lo Espejo",
+                "latitude": -33.437941,
+                "longitude": -70.650623,
+                "addressLine1": "Los Cerrillos",
+                "addressLine2": "RM",
+                "addressLine3": "RM"
+              },
+              "operator": {
+                "operatorId": "be8b6214-3018-11eb-adc1-0242ac120002",
+                "name": "Falabella",
+                "type": "GROUP"
+              },
+              "operationsTimes": [
+                {
+                  "weekday": "Lunes a Viernes",
+                  "openHour": "09:00",
+                  "closeHour": "18:00"
+                },
+                {
+                  "weekday": "Sabado",
+                  "openHour": "09:00",
+                  "closeHour": "18:00"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "statusCode": "400",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "404",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "412",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "500",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "503",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        }
+      ]
+    }
+  }
+}

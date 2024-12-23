@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://aggregator-api-qa.ikso.cl/api-gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

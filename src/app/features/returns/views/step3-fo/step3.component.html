@@ -1,0 +1,348 @@
+<div class="container">
+	<div class="step3-fo content">
+		<div class="step3-fo__header">
+			<div class="step3-fo__indicator">3</div>
+			<p>Método de devolución</p>
+		</div>
+		<div class="body_content">
+			<div class="step3-fo__return-option">
+				<div class="choice-container">
+					<ul class="choice">
+						<li class="choice__list-item">
+							<div 
+								(click)="optionHome = true; optionDropoff = false;" 
+								[ngClass]="[optionHome ? 'choice-item--selected' : '', 'choice-item' ]"
+							>
+								<button  type="button" class="choice-item__action">
+									<span class="choice-item__content">
+										<span class="choice-item__title">Retiro a domicilio </span>
+										<span class="choice-item__caption"></span>
+									</span>
+								</button>
+								<span class="choice-item__border"></span>
+							</div>
+						</li>
+						<li class="choice__list-item">
+							<div 
+							  (click)="switchView()" 
+							  [ngClass]="[optionDropoff ? 'choice-item--selected' : '', 'choice-item' ]"
+							>
+								<button type="button" class="choice-item__action">
+									<span class="choice-item__content">
+										<span class="choice-item__title">Punto de entrega</span>
+										<span class="choice-item__caption"></span>
+									</span>
+								</button>
+								<span class="choice-item__border"></span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div *ngIf="optionHome" class="home_pickup">
+				<!-- Home delivery -->
+				<div class="title">
+					<p>Dirección de retiro</p>
+				</div>
+				<div class="home_delivery" *ngIf="methodCode === 'HOME_DELIVERY'">
+					<p class="preset_address">{{showHomeAddress}}</p>
+					<p>Fecha de retiro</p>
+					<p *ngIf="setDatePickup" class="preset_date">{{setDatePickup}} hrs.</p>
+					<button (click)="openSchedulePickup(); visible = true" type="button" class="btn trailing-icon btn--secondary m-t-16">
+						<span class="btn__inner">
+							<span class="btn__label">Elegir {{setDatePickup ? 'otra' : '' }} fecha</span>
+						</span>
+					</button>
+				</div>
+				<!-- Click & Collect -->
+				<div *ngIf="methodCode === 'COLLECT'">
+					<form *ngIf="!showResumenAddress" class="form_home_pickup" [formGroup]="homePickupForm" #homePickUp>
+						<div class="form-field" style="width: 758px;">
+							<div style="flex: 1;" class="select label-wrapper label-wrapper--text-input region">
+								<label for="example-id" class="" title="Región">Región</label>
+								<div class="select__wrapper" *ngIf="regions">
+									<select (change)="getCities(homePickupForm.get('region')?.value)" formControlName="region">
+										<option disabled value="">Elige una Región</option>
+										<option 
+										  *ngFor="let item of regions?.geographicReferences; let i = index"
+										  value="{{item.politicalAreaId}}"
+										>
+										  {{item.name}}
+										</option>
+									</select>
+									<svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+										<use href="assets/svg/skapa.svg#chevron-down"></use>
+									</svg>
+									<span class="select__border"></span>
+								</div>
+							</div>
+							<div style="flex: 1;" class="select label-wrapper label-wrapper--text-input comuna">
+								<div *ngIf="cities" >
+									<label for="example-id" class="" title="comuna">Comuna</label>
+									<div class="select__wrapper">
+										<select (change)="this.showHomeAddress = true" formControlName="city">
+											<option disabled value="">Elige una Comuna</option>
+											<option 
+											  *ngFor="let item of cities?.geographicReferences; let i = index" 
+											  value="{{item.politicalAreaId}}"
+											>
+											  {{item.name}}
+											</option>
+										</select>
+										<svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+											<use href="assets/svg/skapa.svg#chevron-down"></use>
+										</svg>
+										<span class="select__border"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div *ngIf="showHomeAddress" class="form-field">
+							<div style="margin-right: 24px;" class="input-field label-wrapper label-wrapper--text-input">
+								<label for="customer-address" class="" title="">Domicilio del cliente</label>
+								<div class="input-field__wrapper">
+									<input style="width: 409px;" formControlName="customerAddress" type="text" id="customer-address"/>
+									<span class="input-field__border"></span>
+								</div>
+							</div>
+							<div style="margin-right: 24px;" class="input-field label-wrapper label-wrapper--text-input">
+								<label for="customer-number" class="" title="">Número</label>
+								<div class="input-field__wrapper">
+									<input style="width: 86px;" formControlName="customerNumber" type="text" id="customer-number"/>
+									<span class="input-field__border"></span>
+								</div>
+							</div>
+							<div class="input-field label-wrapper label-wrapper--text-input">
+								<label for="customer-depto" class="" title="">Dpto. / Casa</label>
+								<div class="input-field__wrapper">
+									<input style="width: 86px;" formControlName="customerDepto" type="text" id="customer-depto"/>
+									<span class="input-field__border"></span>
+								</div>
+							</div>
+						</div>
+					</form>
+				   <div *ngIf="showResumenAddress">
+						<p class="preset_address">
+							{{resumenAddressInfo.customerAddress}} 
+							{{resumenAddressInfo.customerNumber}},
+							{{resumenAddressInfo.cityName}},
+							{{resumenAddressInfo.regionName}}.
+							<a (click)="modifiedForm()" class="editLink">Modificar dirección</a>
+						</p>
+						<div *ngIf="showResumenAddress" class="date-pickup-block">
+							<p>Fecha de retiro</p>
+							<p *ngIf="setDatePickup" class="preset_date">{{setDatePickup}} hrs.</p>
+						</div>
+				   </div>
+				   <button *ngIf="showResumenAddress" (click)="openSchedulePickup(); visible = true" type="button" class="btn trailing-icon btn--secondary m-t-16">
+					   <span class="btn__inner">
+						   <span class="btn__label">Elegir {{setDatePickup ? 'otra' : '' }} fecha</span>
+					   </span>
+				   </button>
+				</div>
+			</div>
+			<div *ngIf="optionDropoff" class="store_dropoff">
+				<form [formGroup]="storeDropOff_form" #storeDropOff>
+					<div class="title">
+						<p>Local de entrega</p>
+					</div>
+					<div class="form-field">
+						<div style="flex: 0.3;" class="select label-wrapper label-wrapper--text-input region">
+							<label for="example-id" class="" title="Región">Región</label>
+							<div class="select__wrapper" *ngIf="regions">
+								<select (change)="getCitiesDropOff(storeDropOff_form.get('region')?.value); localDataExist = false;" formControlName="region">
+									<option disabled value="">Elige una Región</option>
+									<option 
+                                      *ngFor="let item of regions?.geographicReferences; let i = index"
+                                      value="{{item.politicalAreaId}}"
+									>
+                                      {{item.name}}
+                                    </option>
+								</select>
+								<svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#chevron-down"></use>
+								</svg>
+                                <span class="select__border"></span>
+							</div>
+						</div>
+						<div style="flex: 0.2;" class="select label-wrapper label-wrapper--text-input comuna">
+							<div *ngIf="citiesDropOff" >
+                                <label for="example-id" class="" title="comuna">Comuna</label>
+                                <div class="select__wrapper">
+									<select (change)="getListStores(storeDropOff_form.get('city')?.value); localDataExist = false;" formControlName="city">
+                                        <option disabled value="">Elige una Comuna</option>
+                                        <option 
+                                          *ngFor="let item of citiesDropOff?.geographicReferences; let i = index" 
+                                          value="{{item.politicalAreaId}}"
+										>
+                                          {{item.name}}
+                                        </option>
+                                    </select>
+                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                        <use href="assets/svg/skapa.svg#chevron-down"></use>
+                                    </svg>
+                                    <span class="select__border"></span>
+                                </div>
+                            </div>
+						</div>
+						<div style="flex: 0.2;" class="select label-wrapper label-wrapper--text-input stores">
+							<div *ngIf="loadingStores" style="margin-top: 48px;">
+								<span class="loading loading--label-center" aria-live="polite">
+									<span class="loading__ball loading__ball--medium loading__ball--emphasised" aria-hidden="true"></span>
+									<span class="loading__sr-only-text"></span>
+								</span>
+							</div>
+							<span *ngIf="storesNode.length > 0" >
+								<label for="example-id" class="" title="Región">Tiendas habilitadas</label>
+								<div class="select__wrapper">
+									<select type="text" (change)="setStoreInfo(storeDropOff_form.get('store')?.value)" formControlName="store">
+										<option disabled value="">Elige una tienda</option>
+										<option 
+										*ngFor="let item of storesNode; let i = index" 
+										value="{{i}}"
+										>
+										{{item.nodeName}}
+										</option>
+									</select>
+									<svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="m12.0003 15.5996-5.7857-5.785 1.414-1.4143 4.3717 4.3711 4.3717-4.3711 1.4141 1.4143-5.7858 5.785z"></path>
+									</svg><span class="select__border"></span>
+								</div>
+							</span>
+						</div>
+					</div>
+					<div *ngIf="nodesInfo">
+						<div class="title">
+							<p>{{storeDetail.nodeName}}</p>
+							<p class="store">{{storeDetail.address.county}}, {{storeDetail.address.addressLine1}}</p>
+						</div>
+						<div class="title">
+							<p>Horarios:</p>
+							<p class="store" *ngFor="let item of storeDetail?.operationsTimes; let i = index" >
+								{{item.weekday}}: {{item.openHour}} a {{item.closeHour}} hrs.
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="step3-fo__btns">
+				<div class="cancel">
+					<button (click)="visibleModal = true" aria-disabled="false" type="button" class="btn btn--tertiary">
+						<span class="btn__inner">
+							<span  class="btn__label">Cancelar solicitud</span>
+						</span>
+					</button>
+				</div>
+			   <div class="btns-right">
+					<div class="back">
+						<button (click)="backStep()" type="button" class="btn btn--tertiary" style="margin-right: 74px;">
+							<span class="btn__inner">
+								<span class="btn__label">Atrás</span>
+							</span>
+						</button>
+					</div>
+					<div class="nextStep">
+						<button 
+						  [disabled]="this.homePickupForm.invalid" 
+						  *ngIf="!savedLocalInfo && optionHome" 
+						  (click)="preSaveAddress()" 
+						  type="button" 
+						  class="btn trailing-icon btn--secondary"
+						>
+							<span class="btn__inner">
+								<svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+									d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+									</path>
+								</svg>
+								<span class="btn__label">Siguiente</span>
+							</span>
+						</button>
+						<button 
+						  [disabled]="!setDatePickup"
+						  *ngIf="savedLocalInfo && optionHome" 
+						  (click)="nextStep()" 
+						  type="button" 
+						  class="btn trailing-icon btn--secondary">
+							<span class="btn__inner">
+								<svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+									d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+									</path>
+								</svg>
+								<span class="btn__label">Siguiente</span>
+							</span>
+						</button>
+						<button 
+						  [disabled]="this.storeDropOff_form.invalid" 
+						  *ngIf="!optionHome" 
+						  (click)="preSaveAddress()" 
+						  type="button" 
+						  class="btn trailing-icon btn--secondary"
+						>
+							<span class="btn__inner">
+								<svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+									d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+									</path>
+								</svg>
+								<span class="btn__label">Siguiente</span>
+							</span>
+						</button>
+					</div>
+			   </div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<app-sk-modal-sheets  [(visible)]="visible">
+	<div class="modal-sheets scheduleDate" #scroll slot="content-body">
+		<h2>Selecciona la fecha y horarios para retiro</h2>
+		<div *ngIf="loadingCalendar" style="margin-top: 48px;">
+			<span class="loading loading--label-center" aria-live="polite">
+				<span class="loading__ball loading__ball--large loading__ball--emphasised" aria-hidden="true"></span>
+				<span class="loading__sr-only-text"></span>
+			</span>
+		</div>
+		<div *ngIf="availabilityOptions.productGroups.length > 0" class="content-datapicker-material">
+			<mat-calendar class="ikea-calendar" 
+			  (selectedChange)="onSelectedDate($event)"
+			  [(selected)]="selectedDate"
+			  [minDate]="startDate"
+			  [maxDate]="maxDate"
+			  [dateFilter]="myFilter"
+			>
+			</mat-calendar>
+		</div>
+		<div class="blockHours" *ngIf="logisticFound.length > 0">
+			<h5>Horarios de retiro disponibles</h5>
+			<div class="form-field checksHours">
+				<fieldset [formGroup]="hoursForm" role="group" class="radio-button-group">
+					<div *ngFor="let item of logisticFound; let i = index" class="radio radio--subtle">
+						<input (change)="setRadioBtnDate(item.timeRangeFrom, item.timeRangeTo, item.logisticOptionId)" 
+						  name="time" 
+						  type="radio" 
+						  id="radioHours_{{i}}" 
+						/>
+						<span class="radio__symbol"></span> 
+						<span class="radio__label"><label for="radioHours_{{i}}" class="">
+							{{item.timeRangeFrom}} a {{item.timeRangeTo}}
+						</label></span>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+		<div class="block-btn">
+			<button [disabled]="!showChoosedDate" (click)="onSetDatePickup();" type="button" class="btn btn--primary btn--fluid">
+				<span class="btn__inner">
+					<span *ngIf="!showChoosedDate" class="btn__label">Elegir fechas</span>
+					<span *ngIf="showChoosedDate" class="btn__label">{{showChoosedDate}}</span>
+				</span>
+			</button>
+		</div>
+	</div>
+</app-sk-modal-sheets>
+
+<app-sk-modal-return-cancel [(visible)]="visibleModal"></app-sk-modal-return-cancel>

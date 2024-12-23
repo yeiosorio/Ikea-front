@@ -1,0 +1,110 @@
+{
+  "orderId": "ISO0000433",
+  "purchaseDate": "02/07/2021",
+  "deliveryDate": "05/07/2021",
+  "deliveryMethod": {
+    "deliveryCode": "HD",
+    "deliveryName": "Home Delivery"
+  },
+  "currentState": {
+    "stateCode": "ETGD",
+    "stateName": "Entregado",
+    "stateDate": "05/07/2021",
+    "delay": false,
+    "deliveryAttempt": 2,
+    "messageDelay": "Esta Orden se encuentra con atraso en la entrega",
+    "actionCancellation": false,
+    "actionRefund": false,
+    "actionListRefund": false
+  },
+  "previousStates": [
+    {
+      "stateCode": "CFMD",
+      "stateName": "confirmado",
+      "stateDate": "02/07/2021"
+    },
+    {
+      "stateCode": "EPCS",
+      "stateName": "En proceso",
+      "stateDate": "02/07/2021"
+    },
+    {
+      "stateCode": "TRST",
+      "stateName": "En transito",
+      "stateDate": "02/07/2021"
+    }
+  ],
+  "deliveryInformation": {
+    "clientName": "Alberto Ricardo Castillo Riquelme",
+    "type": "rut",
+    "clientDocument": "18.645.978-1",
+    "clientEmail": "john-foe@hotmail.com",
+    "deliveryInstructions": "",
+    "deliveryAddress": "Las Pataguas 3334, Chicureo, Santiago, Región Metropolitana",
+    "pointOfSale": "E-Commerce",
+    "authorizedPersons": [
+      {
+        "name": "Jose Ricardo Castillo Riquelme",
+        "documents": [
+          {
+            "type": "CC",
+            "value": "15.636.345-4"
+          }
+        ],
+        "contacts": [
+          {
+            "type": "CC",
+            "value": "4323123"
+          }
+        ]
+      }
+    ],
+    "store": {
+      "code": "STRE0001",
+      "name": "IKEA Open Kennedy",
+      "direction": "Avenida Presidente Kennedy 5601 Rosario Norte, Las Condes, Región Metropolitana.",
+      "hoursOfAttention": "10:00 a 22:00 hrs."
+    }
+  },
+  "packages": [
+    {
+      "id": "1",
+      "updateDatetime": "02/07/2021",
+      "stateCode": "CFDO",
+      "stateName": "Confirmado",
+      "products": [
+        {
+          "name": "LERHAMN",
+          "detail": "Silla, tinte envejecido claro/Vittaryd beige",
+          "sku": "202.445.11",
+          "quantity": 1
+        },
+        {
+          "name": "ROSENSKÄRM",
+          "detail": "Almohada ergonóm, de espaldas/lado33x50 cm",
+          "sku": "602.142.08",
+          "quantity": 2
+        },
+        {
+          "name": "SLATTUME",
+          "detail": "Estructura cama tapizada, Knisa gris claro160x200 cm",
+          "sku": "112.443.01",
+          "quantity": 1
+        },
+        {
+          "name": "KULLEN",
+          "detail": "Colchón de muelles embolsados, firme/gris oscuro140x200 cm",
+          "sku": "202.444.11",
+          "quantity": 5
+        }
+      ]
+    }
+   
+  ],
+  "rejectReason": {
+    "reasonCodeCategory": "string",
+    "reasonCodeSubCategory": "string",
+    "additionalDescription": "string",
+    "mediaURL": ["string"]
+  }
+}

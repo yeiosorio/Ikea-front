@@ -1,0 +1,106 @@
+<div class="delivery container-flex" 
+	*ngIf="this.deliveryInformation?.code"
+	[ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'cancelledAlign' : '']">
+
+	<div class="delivery-item-main" 
+	  [ngClass]="[statusColor, pendingText]"
+	  [ngStyle]="{width: deliveryInformation?.code === 'HOME_DELIVERY' ? '156px' : '',
+	    margin: deliveryInformation?.code === 'HOME_DELIVERY' ? '0px 8px 0px 0px' : '',
+		padding: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px 7px 14px 12px' : ''}">
+		<span class="delivery-item__content">
+			<span class="delivery-item__title" 
+			[ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}">
+				Estado actual
+			</span>
+			<span class="delivery-item__caption" 
+			[ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '18px' : ''}">
+				{{ currentState?.name }}
+			</span>
+		</span>
+	</div>
+	<div class="delivery-item" 
+	  [ngStyle]="{width: deliveryInformation?.code === 'HOME_DELIVERY' ? '172px' : '175px',
+	    padding: deliveryInformation?.code === 'HOME_DELIVERY' ? '21px 8px' : '',
+		margin: deliveryInformation?.code === 'HOME_DELIVERY' ? '0px 8px 0px 0px' : ''}"
+	  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+		<span class="delivery-item__content">
+			<span class="delivery-item__title" 
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+				Método de entrega
+			</span>
+			<span class="delivery-item__caption" 
+			  [ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}"
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+				{{ deliveryInformation?.name }}
+			</span>
+		</span>
+	</div>
+	<div class="delivery-item" 
+	  [ngStyle]="{width: deliveryInformation?.code === 'HOME_DELIVERY' ? '137px' : '161px',
+	    padding: deliveryInformation?.code === 'HOME_DELIVERY' ? '21px 8px' : '',
+	    margin: deliveryInformation?.code === 'HOME_DELIVERY' ? '0px 8px 0px 0px' : ''}" 
+	  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+		<span class="delivery-item__content">
+			<span class="delivery-item__title" 
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">Fecha de compra</span>
+			<span class="delivery-item__caption" 
+			  [ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}"
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">{{ purchaseDate }}</span>
+		</span>
+	</div>
+	<div class="delivery-item"
+	  [ngStyle]="{width: deliveryInformation?.code === 'HOME_DELIVERY' ? '190px' : '162px',
+	    padding: deliveryInformation?.code === 'HOME_DELIVERY' ? '21px 8px' : '',
+	    margin: deliveryInformation?.code === 'HOME_DELIVERY' ? '0px 8px 0px 0px' : ''}"
+	  [ngClass]="[deliveryInformation?.promisedDate?.serviceCategory === 'REGULAR' ? 'widthRegular' : '',
+	    currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+		<span class="delivery-item__content">
+			<span class="delivery-item__title" 
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']" >
+			   {{ deliveryInformation?.code === 'HOME_DELIVERY' ? 'Fecha de entrega' : 'Fecha de retiro'}}
+			</span>
+			<span *ngIf="deliveryInformation?.code === 'COLLECT'" class="delivery-item__caption"  
+			  [ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}"
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+				{{ deliveryInformation?.date }}
+			</span>
+			<span *ngIf="deliveryInformation?.code === 'HOME_DELIVERY'" class="delivery-item__caption"  
+			  [ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}"
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+				<span *ngIf="deliveryInformation?.promisedDate?.serviceCategory === 'REGULAR'">
+					{{deliveryInformation?.promisedDate?.dateTo}}
+				</span>
+				<span *ngIf="deliveryInformation?.promisedDate?.serviceCategory === 'DATE_RANGE'">
+					{{deliveryInformation?.promisedDate?.dateFrom +' - '+ deliveryInformation?.promisedDate?.dateTo}}
+				</span>
+				<span *ngIf="!deliveryInformation?.promisedDate">
+					{{ deliveryInformation?.date }}
+				</span>
+			</span>
+		</span>
+	</div>
+	<div 
+	  class="delivery-item" 
+	  [ngStyle]="{width: deliveryInformation?.code === 'HOME_DELIVERY' ? '132px' : '',
+	    padding: deliveryInformation?.code === 'HOME_DELIVERY' ? '21px 8px' : '',
+	    margin: deliveryInformation?.code === 'HOME_DELIVERY' ? '0px 8px 0px 0px' : ''}"
+	  *ngIf="deliveryInformation?.code === 'HOME_DELIVERY'" 
+	  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+		<span class="delivery-item__content">
+			<span class="delivery-item__title" 
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']" >
+				Hora de entrega
+			</span>
+			<span class="delivery-item__caption" 
+			  [ngStyle]="{fontSize: deliveryInformation?.code === 'HOME_DELIVERY' ? '14px' : ''}"
+			  [ngClass]="[currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' ? 'muted' : '']">
+			  <span *ngIf="!deliveryInformation?.promisedDate">09:00 - 21:00</span>
+			  <span *ngIf="deliveryInformation?.promisedDate">
+				{{deliveryInformation?.promisedDate?.timeRangeFrom +' - '+ deliveryInformation?.promisedDate?.timeRangeTo}}
+			  </span>
+			  
+			</span>
+		</span>
+	</div>
+
+</div>

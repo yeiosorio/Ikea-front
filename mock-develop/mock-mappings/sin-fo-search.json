@@ -1,0 +1,116 @@
+{
+  "products/:idSku/detail": {
+    "GET": {
+      "codeResponse": "200",
+      "delay": "3000",
+      "responses": [
+        {
+          "statusCode": "200",
+          "headers": {
+            "request": {
+            },
+            "response": {
+              "Access-Control-Allow-Headers": "*"
+            }
+          },
+          "body": {
+            "name": "MESA RECTANGULAR 4",
+            "offeringId": "539ace7f-4593-4a19-ba60-d31118c061f5",
+            "tenantId": "string",
+            "sellerId": "123e4567-e89b-12d3-a456-426614174000",
+            "unitPrice": {
+                "currency": "string",
+                "centAmount": "string",
+                "fraction": "string"
+            }
+          }
+        },
+        {
+          "statusCode": "400",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "404",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "412",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "500",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "503",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        }
+      ]
+    }
+  }
+}

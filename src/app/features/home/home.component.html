@@ -1,0 +1,123 @@
+<section class="container-home-app">
+  <div class="content-home">
+    <app-sk-main-menu></app-sk-main-menu>
+    <div class="block-body">
+      <div class="container-dashboard">
+        <h1>Seguimiento, cancelación y devolución de Órdenes de compra</h1>
+        <ul>
+          <li class="card-dashboard">
+            <div class="content-card">
+              <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#location-pin"></use>
+              </svg>
+              <button
+                (click)="visible = true; autofocus();"
+                type="button"
+                class="btn btn--secondary"
+              >
+                <span class="btn__inner">
+                  <span class="btn__label">Seguimiento</span>
+                </span>
+              </button>
+            </div>
+          </li>
+          <li class="card-dashboard">
+            <div class="content-card">
+              <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#box-cancel"></use>
+              </svg>
+              <button (click)="visible = true; autofocus();" type="button" class="btn btn--secondary">
+                <span class="btn__inner">
+                  <span class="btn__label">Cancelación</span>
+                </span>
+              </button>
+            </div>
+          </li>
+          <li class="card-dashboard">
+            <div class="content-card">
+              <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#returns"></use>
+              </svg>
+              <button (click)="goReturnRequest();" type="button" class="btn btn--secondary">
+                <span class="btn__inner">
+                  <span class="btn__label">Devolución</span>
+                </span>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <app-sk-modal-sheets [(visible)]="visible">
+      <div class="modal-sheets" slot="content-body">
+        <br style="margin-bottom: 1em" />
+        <h3>Búsqueda por Nº de Orden de compra</h3>
+        <p>Para hacer seguimiento o cancelar una Orden de compra, ingresa el Nº de Orden del cliente:</p>
+        <div 
+          [formGroup]="orderForm" 
+          [ngClass]="{'form-field': true,'form-field--error': invalid}"
+        >
+          <div
+            class="
+              input-field 
+              input-field--prefixed 
+              label-wrapper 
+              label-wrapper--text-input"
+              [ngClass]="{'input-field--labelled': typed,'input-field--error': invalid}">
+            <label for="example-id" class="" title="Nº de Orden de compra">Nº de Orden de compra</label>
+            <div class="input-field__wrapper">
+              <input
+                #orderSearch
+                class="orderSearch"
+                (keyup.enter)="addInput()"
+                (keyup)="ableButton()"
+                (blur)="isValid()"
+                aria-required="false"
+                formControlName="orderId"
+                maxlength="10"
+              />
+              <span class="input-field__border"></span>
+            </div>
+          </div>
+          <div class="form-field__content">
+            <span
+              id="helper-msg-id"
+              aria-hidden="false"
+              class="form-field__message-wrapper"
+              type="error"
+            >
+              <span class="form-field__icon-wrapper">
+                <svg class="svg-icon form-field__icon" focusable="false" aria-hidden="true">
+                  <use href="assets/svg/skapa.svg#notice-small"></use>
+                </svg>
+              </span>
+              <span *ngIf="invalid" class="form-field__message">Ingresa un número de Orden válido</span>
+            </span>
+          </div>
+        </div>
+        <button type="button" class="btn btn--primary"
+          (click)="addInput()" 
+          [attr.disabled]="disableButton">
+          <span class="btn__inner">
+              <span class="btn__label">Buscar Orden</span> 
+          </span>
+        </button>
+        <div *ngIf="orderNotFoundMsg" aria-hidden="false" class="inline-message inline-message--cautionary orderNotFound">
+          <svg class="svg-icon inline-message__icon" focusable="false" aria-hidden="true">
+            <use href="assets/svg/skapa.svg#warning-triangle"></use>
+          </svg>
+          <div>
+            <p class="inline-message__title">El número de Orden ingresado no existe</p>
+            <span class="inline-message__body">
+              Por favor verifica que el número sea el correcto e inténtalo nuevamente.
+            </span>
+          </div>
+        </div>
+      </div>
+    </app-sk-modal-sheets>
+  </div>
+</section>
+
+
+
+<app-session-inactivity></app-session-inactivity>

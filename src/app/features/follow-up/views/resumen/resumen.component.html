@@ -1,0 +1,351 @@
+
+<section class="container-home-app">
+	<div class="banner banner--emergency" 
+	  *ngIf="(order.currentState?.delay &&
+			order.currentState?.code !== 'CANCELLED' &&
+			order.currentState?.code !== 'CANCELLATION_PENDING'
+		) || 
+			order.currentState?.code === 'ANNULLED' || 
+			order.currentState?.code === 'DELIVERY_PENDING' ||
+			order.currentState?.code === 'PARTIAL_DELIVERY' ||
+			order.currentState?.code === 'DELIVERY_FAILED' ||
+			order.deliveryInformation?.alertMsgCode !== 'UNK'
+		">
+		<svg focusable="false" viewBox="0 0 24 24" class="svg-icon banner__icon">
+			<path d="M11.004 14.134h2v-6h-2v6zM12.004 15.634a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"></path>
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M1.115 20.418l10-19h1.77l10 19L22 21.884H2l-.885-1.466zm2.542-.534h16.687L12 4.03 3.657 19.884z"></path>
+		</svg>
+		<div class="banner__body">{{messageReason}}</div>
+	</div>
+	<div class="content-home">
+		<app-sk-main-menu></app-sk-main-menu>
+		<div *ngIf="!loadingService.loading" class="block-header">
+			<div class="header-content" 
+			  [ngStyle]="{width: order.deliveryInformation?.code === 'HOME_DELIVERY' ? '1154px' : ''}">
+				<p>Seguimiento, cancelación y devolución de Órdenes de compra</p>
+				<div class="header-content__row">
+					<h1 class="header-content__title">Orden de compra {{order.orderId}}</h1>
+					<div class="header-btns" [hidden]="order.currentState?.code !== 'CONFIRMED' || order.cancellationState !== null">
+						<button (click)="openModalCancelled()" type="button" class="btn btn--secondary">
+							<span class="btn__inner">
+								<span class="btn__label">Solicitar cancelación de la Orden de compra</span>
+							</span>
+						</button>
+						
+					</div>
+					<div class="header-btns" [hidden]="order.currentState?.code !== 'DELIVERED'">
+						<button *ngIf="!hasReturn" (click)="goToReturns()" type="button" class="btn btn--primary btn-returns">
+							<span class="btn__inner">
+								<span class="btn__label">Solicitar devolución</span>
+							</span>
+						</button>
+						<div *ngIf="hasReturn">
+							<button (click)="goToReturns()" type="button" class="btn btn--primary btn-returns">
+								<span class="btn__inner">
+									<span class="btn__label">Solicitar nueva devolución</span>
+								</span>
+							</button>
+							<button (click)="goToReturnsAssociated()" type="button" class="btn btn--secondary">
+								<span class="btn__inner">
+									<span class="btn__label">Devoluciones asociadas</span>
+								</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div *ngIf="!loadingService.loading" class="block-body" 
+		    [ngStyle]="{width: order.deliveryInformation?.code === 'HOME_DELIVERY' ? '1155px' : ''}">
+			<div class="content m-t-16">
+				<article class="content__section section-border" 
+				[ngStyle]="{width: order.deliveryInformation?.code === 'HOME_DELIVERY' ? '856px' : ''}">
+					<app-delivery-stepper 
+						class="m-t-20"
+						[infoStatus]="order.currentState" 
+						[previousStates]="order.previousStates"
+						[deliveryInformation]="order.deliveryInformation"
+						[orderItems]="order.orderItems"
+					>
+					</app-delivery-stepper>
+					<app-delivery-info
+						[infoStatus]="order.currentState" 
+						[deliveryInformation]="order.deliveryInformation"
+						[purchaseDate]="order.purchaseDate"
+						[orderItems]="order.orderItems"
+					>
+					</app-delivery-info>
+					<h2 class="title-products">Productos</h2>
+					<div [ngStyle]="{marginLeft: order.deliveryInformation?.code === 'HOME_DELIVERY' ? '56em' : '86%'}" 
+					  (mouseover)="tooltipAmount = true" 
+					  (mouseout)="tooltipAmount = false" 
+					  class="tooltip__container"
+					>
+						<span class="tooltip tooltip--top">
+							<button class="tooltip__trigger-button">
+								<svg focusable="false" viewBox="0 0 24 24" class="svg-icon">
+									<path 
+										d="M13.25 7.25c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25S11.3096 6 12 6s1.25.5596 1.25 1.25zM11 18v-8h2v8h-2z" 
+										fill-rule="evenodd" 
+										clip-rule="evenodd">
+									</path>
+								</svg>
+							</button>
+							<span 
+							  [ngClass]="{'tooltip__body--entering': tooltipAmount}"
+							  class="tooltip__body tooltip__body--no-transition" 
+							  role="tooltip"
+							>
+								<ul>
+								  <li><span class="bold-text">Sin procesar</span>: Ítems siguen en el Centro de Distribución.</li>
+								  <li><span class="bold-text">Despachado</span>: Ítems están en manos del transportista.</li>
+								  <li><span class="bold-text">En tránsito</span>: Ítems van en camino al domicilio del cliente.</li>
+								  <li><span class="bold-text">Entregado</span>: Ítems están en manos del cliente.</li>
+								  <li><span class="bold-text">Anulado</span>: Ítems han sido anulados por alguno de los siguientes motivos: quiebre de stock, cancelación de la compra, entrega fallida.</li>
+								</ul>
+							</span>
+						</span>
+					</div>
+					<div class="table table-items">
+						<table class="">
+							<thead class="">
+								<tr>
+									<th>SKU</th>
+									<th>Descripción</th>
+									<th class="amountField">
+										Cantidad ({{amountTotal}})
+									</th>
+									<th class="statusField">
+										
+										<span>Estado de los ítems</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="body-items">
+								<tr *ngFor="let item of order.orderItems; let i = index">
+									<td class="skuField">{{item?.sku}}</td>
+									<td>{{item?.name}}</td>
+									<td class="amountField">{{item?.quantity}}</td>
+									<td [ngStyle]="{color: item?.statusCode === 'ANNULLED' ? '#E00751' : ''}">
+										{{item?.statusDescription}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</article>
+				<aside class="">
+					<div
+					  class="inline-message inline-message--informative"
+					  [ngClass]="{'inline-message--closed': message}"
+					  *ngIf="
+					    order.currentState?.code !== 'CONFIRMED' && 
+						order.currentState?.code !== 'DELIVERED' &&
+						order.currentState?.code !== 'DELIVERY_FAILED' &&
+						order.currentState?.code !== 'CANCELLED' &&
+						order.currentState?.code !== 'CANCELLATION_PENDING'
+					  ">
+						<svg focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon">
+							<path
+								d="M12 9.5c.6904 0 1.25-.5596 1.25-1.25S12.6904 7 12 7s-1.25.5596-1.25 1.25S11.3096 9.5 12 9.5zM11 11v6h2v-6h-2z">
+							</path>
+							<path fill-rule="evenodd" clip-rule="evenodd"
+								d="M12 2C6.4771 2 2 6.4771 2 12c0 5.5228 4.4771 10 10 10 5.5228 0 10-4.4772 10-10 0-5.5229-4.4772-10-10-10zM4 12c0-4.4183 3.5817-8 8-8s8 3.5817 8 8-3.5817 8-8 8-8-3.5817-8-8z">
+							</path>
+						</svg>
+						<div>
+							<p class="inline-message__title">Cancelación y devolución</p>
+							<span class="inline-message__body">
+								Recuerda que no podrás cancelar ni devolver una compra si
+								su estado es <strong>{{order.currentState?.name}}.</strong>
+							</span>
+						</div>
+						<button (click)="message = true" type="button" class="btn btn--small btn--xsmall btn--icon-tertiary inline-message__close-button">
+							<span class="btn__inner"><svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon">
+									<path fill-rule="evenodd" 
+										clip-rule="evenodd" 
+										d="m12.0006 13.4148 2.8283 2.8283 1.4142-1.4142-2.8283-2.8283 2.8283-2.8283-1.4142-1.4142-2.8283 2.8283L9.172 7.7578 7.7578 9.172l2.8286 2.8286-2.8286 2.8285 1.4142 1.4143 2.8286-2.8286z">
+									</path>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<div
+					  class="inline-message"
+					  [ngClass]="{'inline-message--closed': message}"
+					  [ngClass]="[setAlertColor()]"
+					  *ngIf="cancellationStatus === 'REJECTED' || cancellationStatus === 'APPROVED' ">
+						<svg focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon">
+							<use *ngIf="cancellationStatus === 'APPROVED' && notified" href="assets/svg/skapa.svg#checkmark-circle"></use>
+							<use *ngIf="cancellationStatus === 'APPROVED' && !notified" href="assets/svg/skapa.svg#warning-triangle"></use>
+							<use *ngIf="cancellationStatus === 'REJECTED'" href="assets/svg/skapa.svg#incorrect"></use>
+						</svg>
+						<div>
+							<p class="inline-message__title">
+							  {{cancellationStatus === 'APPROVED' && notified ? 'Cliente notificado' : ''}}
+							  {{cancellationStatus === 'APPROVED' && !notified ? 'Cliente no ha sido notificado' : ''}}
+							  {{cancellationStatus === 'REJECTED' ? 'Solicitud de cancelación rechazada' : ''}}
+							</p>
+							<span class="inline-message__body">
+								{{cancellationStatus === 'APPROVED' && notified ? 'Fecha de notificación: ' : ''}}
+								{{cancellationStatus === 'REJECTED' && notified ? 'Cliente notificado el ' : ''}}
+								{{cancellationStatus === 'REJECTED' && !notified ? 'Cliente no ha sido notificado' : ''}}
+								<span *ngIf="notified">
+									{{order.cancellationState?.updated | date: 'dd/MM/yyyy' }}.
+								</span>
+							</span>
+							<div *ngIf="cancellationStatus === 'REJECTED'" class="ikso-expander-paragraph expander">
+								<div [@animationShowHide]="expandMotive" class="expander__content" aria-hidden="false" role="region" tabindex="0" style="margin-bottom: 1.5rem;">
+									<div class="content-expander">
+										<p>
+											La solicitud de cancelación para la Orden de compra {{order.orderId}} fue RECHAZADA debido a 
+											{{motiveValue(order.cancellationState?.reason?.reasonCodeCategory)}} - 
+											{{subMotiveValue(order.cancellationState?.reason?.reasonCodeCategory, order.cancellationState?.reason?.reasonCodeSubCategory)}}
+										</p>
+									</div>
+								</div>
+								<button 
+									(click)="expandMotive = (expandMotive === 'close') ? 'open' : 'close';"
+									*ngIf="cancellationStatus === 'REJECTED'"
+									class="expander__btn" aria-expanded="true">{{(expandMotive === 'close') ? 'Ver motivos' : 'Ocultar motivos'}}
+								</button>
+							</div>
+						</div>
+						<button (click)="message = true" type="button" class="btn btn--small btn--xsmall btn--icon-tertiary inline-message__close-button">
+							<span class="btn__inner"><svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon">
+									<path fill-rule="evenodd" 
+										clip-rule="evenodd" 
+										d="m12.0006 13.4148 2.8283 2.8283 1.4142-1.4142-2.8283-2.8283 2.8283-2.8283-1.4142-1.4142-2.8283 2.8283L9.172 7.7578 7.7578 9.172l2.8286 2.8286-2.8286 2.8285 1.4142 1.4143 2.8286-2.8286z">
+									</path>
+								</svg>
+							</span>
+						</button>
+					</div>
+					<div 
+					  class="content__sidebar section-border "
+					  [ngClass]="{'margin-close': message, 'expand-margin': (expandMotive === 'open')}"
+					  [ngClass]="{
+						'm-t-16': 
+						cancellationStatus === 'REJECTED' ||
+						cancellationStatus === 'APPROVED' ||
+						order.currentState?.code !== 'CONFIRMED' && 
+						order.currentState?.code !== 'DELIVERED' &&
+						order.currentState?.code !== 'DELIVERY_FAILED' &&
+						order.currentState?.code !== 'CANCELLED' &&
+						order.currentState?.code !== 'CANCELLATION_PENDING'
+					}">
+						<div class="link-list link-list--compact">
+							<h3 class="link-list__title">Datos de la compra</h3>
+							<ul class="link-list__list">
+								<li>
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Nombre cliente</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.clientName}}</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'COLLECT'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">
+											Personas autorizadas para retiro
+										</div>
+										<div (mouseover)="tooltip = true" (mouseout)="tooltip = false" class="tooltip__container">
+											<span class="tooltip tooltip--top">
+												<button class="tooltip__trigger-button">
+													<svg focusable="false" viewBox="0 0 24 24" class="svg-icon">
+														<path 
+															d="M13.25 7.25c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25S11.3096 6 12 6s1.25.5596 1.25 1.25zM11 18v-8h2v8h-2z" 
+															fill-rule="evenodd" 
+															clip-rule="evenodd">
+														</path>
+													</svg>
+												</button>
+												<span [ngClass]="{'tooltip__body--entering': tooltip}" class="tooltip__body tooltip__body--no-transition" role="tooltip">
+													Estas personas están autorizadas para retirar la compra. Para ello, deben portar su cédula de identidad al momento del retiro.
+												</span>
+											</span>
+										</div>
+										<div class="person_list" style="margin-top: 6px;">
+											<li *ngFor="let item of order.deliveryInformation?.authorizedPersons">
+												{{item.name}}
+											</li>
+										</div>
+									</div> 
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'COLLECT'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Nombre tienda</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.store?.name}}</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'COLLECT'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Dirección tienda</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.store?.streetAddress}}</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'COLLECT'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Horario de retiro</div>
+										<div class="link-list__item-value" *ngFor="let item of formatTiming()">
+											{{item}}
+										</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'HOME_DELIVERY'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Nº de documento</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.clientDocument}}</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'HOME_DELIVERY'">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Dirección entrega</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.address}}</div>
+									</div>
+								</li>
+								<li *ngIf="order.deliveryInformation?.code === 'HOME_DELIVERY' &&
+									order.deliveryInformation?.clientPhone">
+									<div class="link-list__item info">
+										<div class="link-list__item-label">Teléfono</div>
+										<div class="link-list__item-value">{{order.deliveryInformation?.clientPhone}}</div>
+									</div>
+								</li>
+								<li>
+									<a *ngIf="hasPackages" (click)="onClickDetail()" class="link-list__item">
+										<div class="link-list__item-title-wrapper">
+											<span class="link-list__item-title">Información de paquetes despachados</span>
+										</div>
+										<span class="link-list__item-icon-wrapper">
+											<svg focusable="false" viewBox="0 0 24 24" class="svg-icon link-list__item-icon">
+												<path fill-rule="evenodd" clip-rule="evenodd"
+													d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+												</path>
+											</svg>
+										</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</div>
+
+		<app-loading *ngIf="loadingService.loading"></app-loading>
+	</div>
+</section>
+
+<app-detail
+[packages]="order.packages"
+[alertMessages]="alertMessages"
+[orderId]="order.orderId"
+
+></app-detail>
+
+<app-cancelled
+	[visible]="visible01"
+	[orderId]="order.orderId"
+	(eventModalClosed)="closeModalCancelled()"
+	(eventRefreshOrden)="refreshOrden()"
+></app-cancelled>

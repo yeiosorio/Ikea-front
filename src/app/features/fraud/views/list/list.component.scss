@@ -1,0 +1,204 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+$side-margin: 87%;
+.container-cancellation{
+    .content-home{
+        padding: 0 0 0 80px;
+        background-color: $colour-bg-default;
+        min-height: 100vh;
+        .container-btn-head{
+            display: flex;
+            justify-content: space-between;
+            padding: 32px 0 40px 0;
+            .content-return{
+                .btn{}
+            }
+            .content-close{
+                .btn{}
+            }
+        }
+        .container-title{
+            .content-title{
+                padding: 0 0 0 0;
+                h1{
+                    margin-bottom: 20px;
+                }
+                p{
+                    font-size: 24px;
+                    font-weight: 700;
+                    margin-bottom: 40px;
+                }
+            }
+        }
+
+        .container-page{
+            min-height: calc(100vh - 300px) !important;
+        }
+    }
+}
+
+// filters
+.container-filters{
+    .content-filters{
+        .block-top-filters{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 20px 0;
+            @include respondto(xs) {
+                padding: 0 0 16px 0;
+            }
+            @include respondto(sm) {
+                padding: 0 0 16px 0;
+            }
+            @include respondto(md) {}
+            @include respondto(lg) {}
+            .left-top-filters{
+                .pill{
+                    svg.pill__icon{}
+                    .pill__label{}
+                }
+            }
+            .right-top-filters{
+                span{}
+            }
+        }
+        .block-line-filters{
+            &.no-data{
+
+            }
+        }
+        .block-bottom-filters{
+            border-top: 1px solid $colour-border-default;
+            padding-top: 20px;
+            @include respondto(xs) {
+                padding-top: 30px;
+            }
+            @include respondto(sm) {
+                padding-top: 30px;
+            }
+            @include respondto(md) {}
+            @include respondto(lg) {}
+            .container-list-filters{
+                display: flex;
+                flex-wrap: wrap;
+                .content-item-filter{
+                    margin-right: .5rem;
+                    margin-bottom: 20px;
+                    @include respondto(xs) {
+                        margin-bottom: 26px;
+                    }
+                    @include respondto(sm) {
+                        margin-bottom: 26px;
+                    }
+                    @include respondto(md) {}
+                    @include respondto(lg) {}
+                    .pill{
+                        svg.pill__icon{}
+                        .pill__label{}
+                    }
+                }
+                .content-btn-clear{
+                    margin-bottom: 10px;
+                    .pill{
+                        .pill__label{}
+                    }
+                }
+            }
+        }
+    }
+}
+
+// container data web
+.container-data-web{
+    .content-data-web{
+        padding: 40px 0 120px 0;
+        .block-table{
+            padding: 0 0 24px 0;
+            .table{
+                table{
+                    width: 100%;
+                    .table-header--sticky{
+                        tr {
+                            .tooltip__container {
+                                position: absolute;
+                                top: 8px;
+                                left: 119px;
+                                .tooltip--top {
+                                }
+                            }
+                            th {
+                                padding: 12px 12px 12px 12px;
+                                .orderStatus {
+                                    z-index: 0;
+                                }
+                            }
+                        }
+                    }
+                    .table-body--striped{
+                        tr{
+                            &.redStatus{
+                                td{
+                                    .status{
+                                        color: $colour-semantic-negative;
+                                    }
+                                }
+                            }
+                            &.greenStatus{
+                                td{
+                                    .status{
+                                        color: $colour-semantic-positive;
+                                    }
+                                }
+                            }
+                            &.darkStatus{
+                                td{
+                                    font-weight: bold;
+                                    .link-skapa{
+                                        font-weight: bold;
+                                    }
+                                    .status{
+                                        font-weight: bold;
+                                        color: $colour-neutral-grey-900;
+                                    }
+                                }
+                            }
+                            td{
+                                padding: 12px 12px 12px 12px;
+                                &:nth-child(2){
+                                    white-space: nowrap;
+                                }
+                                a.link{
+                                    cursor: pointer;
+                                }
+                                .status{
+                                    font-size: 14px;
+                                    color: $colour-neutral-grey-900;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .block-pagination{
+            display: flex;
+            flex-direction: column;
+            padding: 0 0 100px 0;
+            .content-loading-cancel{
+                display: flex;
+                justify-content: center;
+                padding: 0 0 15px 0;
+            }
+            .content-pagination{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                .btn{}
+            }
+        }
+    }
+}

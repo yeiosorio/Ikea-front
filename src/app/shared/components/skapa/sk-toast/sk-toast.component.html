@@ -1,0 +1,37 @@
+<div class="toast" [ngClass]="[isOpen ? 'toast--show' : '']" [attr.aria-hidden]="!isOpen" role="status">
+    <div class="toast__body-wrapper">
+        <div class="toast__body">
+            <p class="toast__text" [innerHTML]="text"></p>
+        </div>
+        <div class="toast__action">
+            <button
+                *ngIf="actionButtonText"
+                (click)="clickAction()"
+                type="button"
+                class="btn btn--small btn--plain toast__action-message"
+                [attr.tabindex]="!isOpen ? '-1' : null"
+                [attr.aria-label]="actionButtonText">
+                <span class="btn__inner"><span class="btn__label" [innerHTML]="actionButtonText"></span></span>
+            </button>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="notBtnClose" class="toast__divider">
+            <div class="toast__divider-visible"></div>
+            <div class="toast__divider-cover-container">
+                <div class="toast__divider-cover"></div>
+            </div>
+        </div>
+        <div *ngIf="notBtnClose" class="toast__close-btn">
+            <button (click)="toastClosed()" type="button" class="btn btn--xsmall btn--icon-tertiary-inverse" [attr.tabindex]="!isOpen ? '-1' : null">
+                <span class="btn__inner">
+                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__cross-small"
+                        aria-hidden="true">
+                        <use href="assets/svg/skapa.svg#cross-small"></use>
+                    </svg>
+                    <span class="btn__label" [innerHTML]="ariaLabelCloseBtn"></span>
+                </span>
+            </button>
+        </div>
+    </div>
+</div>

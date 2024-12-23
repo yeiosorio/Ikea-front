@@ -1,0 +1,451 @@
+{
+  "orders/order-cancelled-list": {
+    "POST": {
+      "codeResponse": "200",
+      "delay": "2500",
+      "responses": [
+        {
+          "statusCode": "200",
+          "headers": {
+            "request": {
+            },
+            "response": {
+              "Access-Control-Allow-Headers": "*"
+            }
+          },
+          "body": [
+            {
+                "id": "ac8f2456-31b2-4b8c-832a-7269e77336c8",
+                "orderId": "46748",
+                "logisticOrderId": "8445448251",
+                "purchaseDate": "2022-04-01T21:46:39.265+00:00",
+                "currentState": {
+                    "code": "CANCELLATION_REQUESTED",
+                    "name": "Cancelación solicitada",
+                    "date": "2022-04-01T21:46:51.328+00:00",
+                    "delay": null,
+                    "messageDelay": null,
+                    "actionCancellation": false,
+                    "actionRefund": null,
+                    "actionListRefund": null
+                },
+                "previousStates": [
+                    {
+                        "code": "CONFIRMED",
+                        "name": "Confirmado",
+                        "date": "2022-04-01T21:46:39.276+00:00",
+                        "delay": false,
+                        "messageDelay": null,
+                        "actionCancellation": true,
+                        "actionRefund": false,
+                        "actionListRefund": false
+                    }
+                ],
+                "deliveryInformation": {
+                    "code": "COLLECT",
+                    "name": "Click & Collect",
+                    "date": null,
+                    "clientName": "Edgar Alfonso Lizcano Gomez",
+                    "clientDocument": "123456789",
+                    "clientEmail": "client@gmail.com",
+                    "address": "string string string string string",
+                    "instructions": "string",
+                    "pointOfSale": "IKEA",
+                    "authorizedPersons": [
+                        {
+                            "name": "string string string string",
+                            "documents": [
+                                {
+                                    "type": "RUT",
+                                    "value": "string"
+                                }
+                            ],
+                            "contacts": [
+                                {
+                                    "type": "Teléfono",
+                                    "value": "+569 6181 9595"
+                                }
+                            ]
+                        }
+                    ],
+                    "store": {
+                        "id": null
+                    }
+                },
+                "packages": [
+                    {
+                        "id": "0483",
+                        "updateDate": "2022-04-01T21:46:39.276+00:00",
+                        "stateCode": "PACKED",
+                        "stateName": "Empacado",
+                        "products": [
+                            {
+                                "name": "",
+                                "detail": "",
+                                "sku": null,
+                                "quantity": "12 C/U",
+                                "unitPrice": null
+                            }
+                        ]
+                    }
+                ],
+                "rejectReason": null,
+                "cancellationState": {
+                    "cancellationRequested": "2022-04-01T21:44:15.768+00:00",
+                    "updated": null,
+                    "status": "REQUESTED",
+                    "message": "",
+                    "notified": false,
+                    "reason": null
+                },
+                "cancellationHistory": []
+            },
+            {
+                "id": "e4245850-b0b2-4d97-9bc2-7d6302a1ecc5",
+                "orderId": "81864",
+                "logisticOrderId": "5766676548",
+                "purchaseDate": "2022-04-01T20:30:57.841+00:00",
+                "currentState": {
+                    "code": "CANCELLATION_REQUESTED",
+                    "name": "Cancelación solicitada",
+                    "date": "2022-04-01T20:31:28.206+00:00",
+                    "delay": null,
+                    "messageDelay": null,
+                    "actionCancellation": false,
+                    "actionRefund": null,
+                    "actionListRefund": null
+                },
+                "previousStates": [
+                    {
+                        "code": "CONFIRMED",
+                        "name": "Confirmado",
+                        "date": "2022-04-01T20:30:57.848+00:00",
+                        "delay": false,
+                        "messageDelay": null,
+                        "actionCancellation": true,
+                        "actionRefund": false,
+                        "actionListRefund": false
+                    }
+                ],
+                "deliveryInformation": {
+                    "code": "COLLECT",
+                    "name": "Click & Collect",
+                    "date": null,
+                    "clientName": "Edgar Alfonso Lizcano Gomez",
+                    "clientDocument": "123456789",
+                    "clientEmail": "client@gmail.com",
+                    "address": "string string string string string",
+                    "instructions": "string",
+                    "pointOfSale": "IKEA",
+                    "authorizedPersons": [
+                        {
+                            "name": "string string string string",
+                            "documents": [
+                                {
+                                    "type": "RUT",
+                                    "value": "string"
+                                }
+                            ],
+                            "contacts": [
+                                {
+                                    "type": "Teléfono",
+                                    "value": "+569 6181 9595"
+                                }
+                            ]
+                        }
+                    ],
+                    "store": {
+                        "id": null
+                    }
+                },
+                "packages": [
+                    {
+                        "id": "2748",
+                        "updateDate": "2022-04-01T20:30:57.848+00:00",
+                        "stateCode": "PACKED",
+                        "stateName": "Empacado",
+                        "products": [
+                            {
+                                "name": "",
+                                "detail": "",
+                                "sku": null,
+                                "quantity": "12 C/U",
+                                "unitPrice": null
+                            }
+                        ]
+                    }
+                ],
+                "rejectReason": null,
+                "cancellationState": {
+                    "cancellationRequested": "2022-04-01T20:31:15.624+00:00",
+                    "updated": null,
+                    "status": "REQUESTED",
+                    "message": "",
+                    "notified": false,
+                    "reason": null
+                },
+                "cancellationHistory": []
+            },
+            {
+                "id": "279acbb7-66ad-4c1d-992e-475cc9053e25",
+                "orderId": "80258",
+                "logisticOrderId": "5719995132",
+                "purchaseDate": "2022-04-01T20:30:33.967+00:00",
+                "currentState": {
+                    "code": "CANCELLATION_REQUESTED",
+                    "name": "Cancelación solicitada",
+                    "date": "2022-04-01T20:30:48.614+00:00",
+                    "delay": null,
+                    "messageDelay": null,
+                    "actionCancellation": false,
+                    "actionRefund": null,
+                    "actionListRefund": null
+                },
+                "previousStates": [
+                    {
+                        "code": "CONFIRMED",
+                        "name": "Confirmado",
+                        "date": "2022-04-01T20:30:34.080+00:00",
+                        "delay": false,
+                        "messageDelay": null,
+                        "actionCancellation": true,
+                        "actionRefund": false,
+                        "actionListRefund": false
+                    }
+                ],
+                "deliveryInformation": {
+                    "code": "COLLECT",
+                    "name": "Click & Collect",
+                    "date": null,
+                    "clientName": "Edgar Alfonso Lizcano Gomez",
+                    "clientDocument": "123456789",
+                    "clientEmail": "client@gmail.com",
+                    "address": "string string string string string",
+                    "instructions": "string",
+                    "pointOfSale": "IKEA",
+                    "authorizedPersons": [
+                        {
+                            "name": "string string string string",
+                            "documents": [
+                                {
+                                    "type": "RUT",
+                                    "value": "string"
+                                }
+                            ],
+                            "contacts": [
+                                {
+                                    "type": "Teléfono",
+                                    "value": "+569 6181 9595"
+                                }
+                            ]
+                        }
+                    ],
+                    "store": {
+                        "id": null
+                    }
+                },
+                "packages": [
+                    {
+                        "id": "1159",
+                        "updateDate": "2022-04-01T20:30:34.081+00:00",
+                        "stateCode": "PACKED",
+                        "stateName": "Empacado",
+                        "products": [
+                            {
+                                "name": "",
+                                "detail": "",
+                                "sku": null,
+                                "quantity": "12 C/U",
+                                "unitPrice": null
+                            }
+                        ]
+                    }
+                ],
+                "rejectReason": null,
+                "cancellationState": {
+                    "cancellationRequested": "2022-04-01T20:30:09.332+00:00",
+                    "updated": null,
+                    "status": "REQUESTED",
+                    "message": "",
+                    "notified": false,
+                    "reason": null
+                },
+                "cancellationHistory": []
+            },
+            {
+                "id": "db8ced7a-0f74-4d9d-b0d3-60651bfc9a97",
+                "orderId": "44012",
+                "logisticOrderId": "0601584979",
+                "purchaseDate": "2022-04-01T19:23:00.613+00:00",
+                "currentState": {
+                    "code": "CANCELLATION_REQUESTED",
+                    "name": "Cancelación solicitada",
+                    "date": "2022-04-01T19:23:48.607+00:00",
+                    "delay": null,
+                    "messageDelay": null,
+                    "actionCancellation": false,
+                    "actionRefund": null,
+                    "actionListRefund": null
+                },
+                "previousStates": [
+                    {
+                        "code": "CONFIRMED",
+                        "name": "Confirmado",
+                        "date": "2022-04-01T19:23:00.694+00:00",
+                        "delay": false,
+                        "messageDelay": null,
+                        "actionCancellation": true,
+                        "actionRefund": false,
+                        "actionListRefund": false
+                    }
+                ],
+                "deliveryInformation": {
+                    "code": "COLLECT",
+                    "name": "Click & Collect",
+                    "date": null,
+                    "clientName": "Edgar Alfonso Lizcano Gomez",
+                    "clientDocument": "123456789",
+                    "clientEmail": "client@gmail.com",
+                    "address": "string string string string string",
+                    "instructions": "string",
+                    "pointOfSale": "IKEA",
+                    "authorizedPersons": [
+                        {
+                            "name": "string string string string",
+                            "documents": [
+                                {
+                                    "type": "RUT",
+                                    "value": "string"
+                                }
+                            ],
+                            "contacts": [
+                                {
+                                    "type": "Teléfono",
+                                    "value": "+569 6181 9595"
+                                }
+                            ]
+                        }
+                    ],
+                    "store": {
+                        "id": null
+                    }
+                },
+                "packages": [
+                    {
+                        "id": "7750",
+                        "updateDate": "2022-04-01T19:23:00.695+00:00",
+                        "stateCode": "PACKED",
+                        "stateName": "Empacado",
+                        "products": [
+                            {
+                                "name": "",
+                                "detail": "",
+                                "sku": null,
+                                "quantity": "12 C/U",
+                                "unitPrice": null
+                            }
+                        ]
+                    }
+                ],
+                "rejectReason": null,
+                "cancellationState": {
+                    "cancellationRequested": "2022-04-01T19:23:00.690+00:00",
+                    "updated": null,
+                    "status": "REQUESTED",
+                    "message": "",
+                    "notified": false,
+                    "reason": null
+                },
+                "cancellationHistory": []
+            }
+          ]
+        },
+        {
+          "statusCode": "400",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "404",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "412",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "500",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "503",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        }
+      ]
+    }
+  }
+}

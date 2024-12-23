@@ -1,0 +1,19 @@
+include:
+  - project: 'rtl/merchandise-ti-corp/ikso/ikso-aggregator/configuration/template-cicd'
+    file: 'dev/.gitlab-ci-nodejs-template.yml'
+    ref: 'ikso-aggregator'
+
+## Stages definition
+stages:
+  #- compile
+  #- test-review
+  #- test-staging
+  #- test-testing
+  #- test-prod
+  #- test
+  #- veracode
+  #- sonarqube
+  #- package
+  - build
+  - clair
+  - deploy

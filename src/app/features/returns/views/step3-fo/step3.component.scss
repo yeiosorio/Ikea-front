@@ -1,0 +1,140 @@
+@import "./default-theme/constants";
+@import "node_modules/@ingka/variables/style.scss";
+@import "./default-theme/mixins";
+
+.container {
+  width: 100%;
+  padding: 12px 0px 0px 52px;
+  .step3-fo.content {
+    .step3-fo__header {
+      display: flex;
+      .step3-fo__indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #ffffff;
+        background: #111111;
+        border-radius: 100px;
+        width: 35px;
+        height: 35px;
+        margin-right: 25px;
+      }
+      p {
+        font-size: 24px;
+        color: #111111;
+        font-weight: bold;
+      }
+    }
+    .body_content {
+      margin-left: 62px;
+      .step3-fo__return-option {
+        width: 100%;
+        margin-top: 24px;
+        .choice {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .choice__list-item {
+          flex: 32% 0;
+          padding-right: 24px;
+          margin-bottom: 2rem;
+        }
+      }
+      .step3-fo__block-region-address {
+        width: 100%;
+        margin: 0px 0px 0px 32px;
+      }
+      .step3-fo__block-customer-address {
+        width: 100%;
+        margin: 0px 0px 0px 32px;
+      }
+      .home_pickup {
+        .home_delivery {
+          p {
+            color: #111111;
+            font-size: 16px;
+            font-weight: bold;
+          }
+          p.preset_address, p.preset_date {
+            color: #484848;
+            margin: 16px 0px 32px 0px;
+            font-weight: 100;
+          }
+          p.preset_date {
+            margin: 16px 0 0px;
+          }
+        }
+        p {
+          color: #111111;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        p.preset_address,
+        p.preset_date {
+          color: #484848;
+          margin: 16px 0px 32px 0px;
+          font-weight: 100;
+        }
+        p.preset_date {
+          margin: 16px 0 0px;
+        }
+        .editLink {
+          color: #2479c4;
+          font-size: 14px;
+          cursor: pointer;
+          margin-left: 24px;
+        }
+      }
+      .store_dropoff, .home_pickup {
+        .form-field {
+          display: flex;
+          flex-wrap: wrap;
+          .select {
+            flex: 30% 0;
+          }
+          .region, .comuna {
+            margin-right: 24px;
+          }
+        }
+      }
+      .title {
+        color: #111111;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 16px;
+      }
+      .store {
+        color: #494949;
+        font-weight: 100;
+        margin-top: -10px;
+      }
+    }
+    .step3-fo__btns {
+      display: flex;
+      margin: 98px 117px 0 0px;
+      align-items: center;
+      justify-content: space-between;
+      align-items: center;
+      .btns-right {
+        display: flex;
+        align-items: center;
+      }
+      .cancel .btn__label {
+        color: #e00751;
+      }
+    }
+  }
+}
+.scheduleDate {
+  margin-top: -35px;
+}
+.blockHours {
+  margin-left: 17px;
+}
+.checksHours {
+  margin-top: 41px;
+}
+.block-btn {
+  margin-top: 80px;
+}

@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    &.oveflow-hidden{
+        overflow: hidden;
+    }
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+}
+
+span{
+    margin: 0;
+}
+img{
+    vertical-align: baseline;
+    max-width: none;
+    height: auto;
+}
+
+a{
+    text-decoration: none;
+    font-family: var(--ikea-font);
+    // &:link {
+    //     text-decoration: none;
+    // }
+    &:focus{
+        outline: none;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-family: var(--ikea-font);
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    font-family: var(--ikea-font);
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+form{
+    margin: 0;
+}
+// Number Input Styles
+// input[type="number"]{}
+.input-number-no-bottom{
+    -moz-appearance:textfield;
+    margin: 0;
+    &::-webkit-inner-spin-button, 
+    &::-webkit-outer-spin-button{
+        -webkit-appearance: none; 
+        margin: 0;
+    }
+}
+// Searchbox Input Styles
+// input[type="search"]{}
+.input-searchbox-no-style{
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+        -webkit-appearance:none;
+    }
+}
+
+.limpia-input {
+    border: 0;
+    &:focus {
+        outline: 0px;
+    }
+}
+
+.block-ikea-container{
+    width: 96%;
+    max-width: 1170px;
+    margin: auto;
+}
+
+
+// Autocompletado
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover, 
+// input:-webkit-autofill:focus,
+// textarea:-webkit-autofill,
+// textarea:-webkit-autofill:hover,
+// textarea:-webkit-autofill:focus,
+// select:-webkit-autofill,
+// select:-webkit-autofill:hover,
+// select:-webkit-autofill:focus {
+//     -webkit-text-fill-color: $fbx-primary;
+//     -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+//     transition: background-color 5000s ease-in-out 0s;
+//     font-family: var(--ikea-font);
+// }
+
+//Scroll bar
+//::-webkit-scrollbar {
+  //  -webkit-appearance: none;
+//}
+
+//::-webkit-scrollbar:vertical {
+  //  width:10px;
+//}
+
+//::-webkit-scrollbar-button:increment,::-webkit-scrollbar-button {
+  //  display: none;
+// }
+
+//::-webkit-scrollbar:horizontal {
+  //  height: 10px;
+//}
+
+//::-webkit-scrollbar-thumb {
+  //  background-color: $fbx-primary ;
+   // border-radius: 20px;
+  //  border: 2px solid #f1f2f3;
+//}
+
+//::-webkit-scrollbar-track {
+  //  border-radius: 10px;  
+//}

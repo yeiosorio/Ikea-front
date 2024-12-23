@@ -1,0 +1,51 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+.container-box-message{
+    .content-box-message{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 20px 20px 20px;
+        min-height: 400px;
+        &.left-box-message{
+            align-items: flex-start;
+            .detail{
+                text-align: start;
+            }
+        }
+        .block-image{
+            margin-bottom: 67px;
+            svg{
+                color: $colour-icon-light;
+                width: 53px;
+                height: 53px;
+                margin: 0 19px 0 19px;
+            }
+        }
+        .message{
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 1.45;
+            color: $colour-text-dark;
+            margin-bottom: 24px;
+        }
+        .detail{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.57;
+            color: $colour-text-default;
+            margin-bottom: 32px;
+            @include respondto(xs) {}
+            @include respondto(sm) {}
+            @include respondto(md) {
+                text-align: center;
+            }
+            @include respondto(lg) {
+                text-align: center;
+            }
+        }
+    }
+}

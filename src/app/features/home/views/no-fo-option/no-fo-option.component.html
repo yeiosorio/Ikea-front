@@ -1,0 +1,203 @@
+<section class="container-home-app">
+    <div class="content-home">
+      <app-sk-main-menu></app-sk-main-menu>
+      <div class="block-body">
+        <button [routerLink]="['/home/return-request-menu']" aria-disabled="false" type="button" class="btn btn--small leading-icon btn--secondary btn-back">
+          <span class="btn__inner">
+              <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#arrow-left"></use>
+              </svg>
+              <span class="btn__label">Volver</span>
+          </span>
+        </button>
+        <div class="container-dashboard">
+          <h1>Devolución de productos sin método de entrega asociado</h1>
+          <ul>
+           
+            <li class="card-dashboard">
+              <div class="content-card">
+                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                  <use href="assets/svg/skapa.svg#returns"></use>
+                </svg>
+                <button (click)="clearAllSession()" [routerLink]="['/returns/step1-no-fo']" type="button" class="btn btn--secondary">
+                  <span class="btn__inner">
+                    <span class="btn__label">Crear nueva devolución</span>
+                  </span>
+                </button>
+              </div>
+            </li>
+            <li class="card-dashboard">
+              <div class="content-card">
+                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                  <use href="assets/svg/skapa.svg#box-return"></use>
+                </svg>
+                <button (click)="visible = true" type="button" class="btn btn--secondary">
+                  <span class="btn__inner">
+                    <span class="btn__label">Ver estado devolución</span>
+                  </span>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <app-sk-modal-sheets [(visible)]="visible">
+        <div class="modal-sheets" slot="content-body">
+          <br style="margin-bottom: 1em" />
+          <h3>Ingresar Nº de solicitud de devolución</h3>
+          <div 
+            [formGroup]="orderForm" 
+            [ngClass]="{'form-field': true,'form-field--error': invalid}"
+          >
+            <div
+              class="
+                input-field 
+                input-field--prefixed 
+                label-wrapper 
+                label-wrapper--text-input"
+                [ngClass]="{'input-field--labelled': typed,'input-field--error': invalid}">
+              <label for="example-id" class="" title="Nº de Orden de compra">Nº de solicitud</label>
+              <div class="input-field__wrapper">
+                <input
+                  #orderSearch
+                  class="orderSearch"
+                  (keyup.enter)="getReverseStatus()"
+                  aria-required="false"
+                  formControlName="reverseLogisticId"
+                />
+                <span class="input-field__border"></span>
+              </div>
+            </div>
+            <div class="form-field__content">
+              <span
+                id="helper-msg-id"
+                aria-hidden="false"
+                class="form-field__message-wrapper"
+                type="error"
+              >
+                <span class="form-field__icon-wrapper">
+                  <svg class="svg-icon form-field__icon" focusable="false" aria-hidden="true">
+                    <use href="assets/svg/skapa.svg#notice-small"></use>
+                  </svg>
+                </span>
+                <span *ngIf="invalid" class="form-field__message">Ingresa un número de Orden válido</span>
+              </span>
+            </div>
+          </div>
+          <button type="button" class="btn btn--primary"
+            (click)="getReverseStatus()" 
+            [attr.disabled]="disableButton">
+            <span class="btn__inner">
+                <span class="btn__label">Buscar Solicitud</span> 
+            </span>
+          </button>
+          <div *ngIf="orderNotFoundMsg" aria-hidden="false" class="inline-message inline-message--cautionary orderNotFound">
+            <svg class="svg-icon inline-message__icon" focusable="false" aria-hidden="true">
+              <use href="assets/svg/skapa.svg#warning-triangle"></use>
+            </svg>
+            <div>
+              <p class="inline-message__title">El número de solicitud ingresado no existe</p>
+              <span class="inline-message__body">
+                Por favor verifica que el número sea el correcto e inténtalo nuevamente.
+              </span>
+            </div>
+          </div>
+        </div>
+      </app-sk-modal-sheets>
+
+      <app-sk-modal-sheets [(visible)]="visible2">
+        <div class="modal-sheets" slot="content-body">
+          <div class="block-edition wrap-detail">
+            <div class="main-title">
+                <p>Solicitud de devolución Nº {{reverseStatus?.reverseLogisticOrderId}}</p>
+            </div>
+            <div class="block-detail">
+                <p class="title">Creación de la solicitud</p>
+                <p class="subtitle">{{reverseStatus?.creationDate | date: 'dd/MM/yyyy' }}</p>
+            </div>
+            <div class="block-detail">
+                <p class="title">Método de devolución</p>
+                <p *ngIf="reverseStatus?.reverseLogisticOrderItems" class="subtitle">
+                    {{returnOptionName === 'HOME_PICKUP' ? 'Retiro a domicilio': 'Punto de entrega'}}
+                </p>
+            </div>
+            <div *ngIf="returnOptionName === 'HOME_PICKUP'" class="block-detail">
+                <p class="title">Fecha de retiro</p>
+                <p class="subtitle">{{reverseStatus.reverseLogisticOrderItems[0]?.returnOption?.timeRangeSelection}}</p>
+            </div>
+            <div class="block-detail">
+                <p class="title">Dirección de {{returnOptionName === 'HOME_PICKUP' ? 'retiro': 'tienda'}}</p>
+                <p *ngIf="reverseStatus?.reverseLogisticOrderItems" class="subtitle">
+                  {{reverseStatus.reverseLogisticOrderItems[0]?.returnOption?.addressInfo?.addressLine1}}
+                </p>
+            </div>
+            <div class="block-detail">
+                <p class="title">CRMid</p>
+                <p class="subtitle">{{reverseStatus?.crmId}}</p>
+            </div>
+        </div>
+            <div>
+                <ul class="accordion">
+                    <li *ngFor="let item of reverseStatus?.reverseLogisticOrderItems; let i = index" 
+                        [ngClass]="[accIsOpen[i] ? 'accordion__item--active' : '']" class="accordion__item" [id]="'accordion_00'+i">
+                        <div role="heading" aria-level="2">
+                            <button
+                                (click)="accIsOpen[i] = !accIsOpen[i]" 
+                                type="button" class="accordion__heading accordion-item-header" 
+                                [attr.aria-controls]="'SEC_accordion_00'+i"
+                                aria-expanded="false"
+                                [attr.aria-expanded]="accIsOpen[i]"
+                            >
+                            <span class="accordion-item-header__title-wrapper">
+                                <span class="accordion-item-header__title">
+                                    {{item.name}}
+                                </span>
+                                <span *ngIf="!accIsOpen[i]" class="accordion-item-header__subtitle">
+                                    <div style="font-size:14px; margin-right: 8px; margin-top: 14px;">
+                                        <span class="status status--green"><span class="status__dot current"></span>{{item.statusDesc}}</span>
+                                    </div>
+                                </span>
+                            </span>
+                            <svg focusable="false" viewBox="0 0 24 24" [ngClass]="[accIsOpen[i] ? 'svg-icon--rotate-180' : '']" class="svg-icon accordion-item-header__icon" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="m12.0003 15.5996-5.7857-5.785 1.414-1.4143 4.3717 4.3711 4.3717-4.3711 1.4141 1.4143-5.7858 5.785z"></path>
+                                </svg></button>
+                        </div>
+                        <div 
+                            style="padding-top: 0rem;"
+                            [id]="'SEC_accordion_00'+i"
+                            class="accordion__content" 
+                            [attr.aria-labelledby]="'accordion_00'+i" role="region">
+                            <div class="wrap-content">
+                                <p class="label">Estado</p>
+                                <p class="text-content">{{item.statusDesc}}</p>
+                            </div>
+                            <div class="wrap-content">
+                                <p class="label">Nº seguimiento Operador logístico</p>
+                                <p class="text-content">{{item.trackingNumber}}</p>
+                            </div>
+                            <div class="wrap-content">
+                                <p class="label">Cantidad a devolver</p>
+                                <p class="text-content">{{item.quantity}}</p>
+                            </div>
+                            <div class="wrap-content">
+                                <p class="label">SKU</p>
+                                <p class="text-content">{{item.sellerSkuId}}</p>
+                            </div>
+                            <div class="wrap-content">
+                                <p class="label">Motivo de devolución</p>
+                                <p class="text-content">{{motiveValue(item.returnReason.reasonCodeCategory)}} - {{subMotiveValue(item.returnReason.reasonCodeCategory, item.returnReason.reasonCodeSubCategory)}}</p>
+                            </div>
+                            <div class="wrap-content">
+                                <p class="label">Condiciones del producto</p>
+                                <p class="text-content">{{item.condition[0].conditionValue}}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </app-sk-modal-sheets>
+    </div>
+  </section>
+  

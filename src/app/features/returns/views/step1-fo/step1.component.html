@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="step1-fo content">
+        <div class="step1-fo__header">
+            <div class="step__indicator">1</div>
+            <p>Datos del cliente</p>
+        </div>
+        <form>
+            <div class="step1-fo__name">
+                <div class="form-field ">
+                    <div class="input-field label-wrapper label-wrapper--text-input">
+                        <label for="name-id" class="" title="Nombre">Nombre</label>
+                        <div class="input-field__wrapper input-field--disabled">
+                            <input disabled value="{{step1Data?.['name']}}" type="text" id="name-id" inputMode="text" />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__type-dni">
+                <div class="form-field">
+                    <fieldset role="group" class="radio-button-group">
+                        <div class="radio radio--subtle">
+                            <input [checked]="isRut" disabled type="radio" name="typeIdentification" id="radioButton-dni-1" />
+                            <span class="radio__symbol"></span>
+                            <span class="radio__label">
+                                <label for="radioButton-dni-1" class="">RUT</label>
+                            </span>
+                        </div>
+                        <div class="radio radio--subtle">
+                            <input [checked]="isPassport" disabled type="radio" name="typeIdentification" id="radioButton-dni-2" />
+                            <span class="radio__symbol"></span>
+                            <span class="radio__label">
+                                <label for="radioButton-dni-2" class="">Pasaporte</label>
+                            </span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="step1-fo__dni">
+                <div class="form-field">
+                    <div class="input-field label-wrapper label-wrapper--text-input">
+                        <label for="dni-id" class="" title="Documento">Nº de documento</label>
+                        <div class="input-field__wrapper input-field--disabled">
+                            <input disabled value="{{step1Data?.['dni']}}" type="text" id="dni-id" aria-required="false" />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__email">
+                <div class="form-field">
+                    <div class="input-field label-wrapper label-wrapper--text-input ">
+                        <label for="email-id" class="" title="Documento">Correo electrónico</label>
+                        <div class="input-field__wrapper input-field--disabled">
+                            <input disabled value="{{step1Data?.['email']}}" type="text" id="email-id" aria-required="false" />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__btns">
+                <div class="cancel">
+                    <button (click)="visibleModal = true" aria-disabled="false" type="button" class="btn btn--tertiary">
+                        <span class="btn__inner">
+                            <span class="btn__label">Cancelar solicitud</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="nextStep">
+                    <button (click)="nextStep()" aria-disabled="false" type="button" class="btn trailing-icon btn--secondary">
+                        <span class="btn__inner">
+                            <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+                                </path>
+                            </svg>
+                            <span class="btn__label">Siguiente</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-sk-modal-return-cancel [(visible)]="visibleModal"></app-sk-modal-return-cancel>
+
+

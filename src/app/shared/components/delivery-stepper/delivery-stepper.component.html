@@ -1,0 +1,131 @@
+<div class="stepper-container" 
+  [ngStyle]="{width: '106%'}"
+>
+  <ul class="progressbar" 
+    [ngStyle]="{marginLeft: '-54px'}"
+    [ngClass]="
+      [currentState?.code === 'CANCELLED' || 
+      currentState?.code === 'ANNULLED' ||
+      currentState?.code === 'CANCELLATION_PENDING' 
+      ? 'cancelledAlign' : '']
+    "
+  >
+    <li
+      [ngClass]="[confirmStage]"
+      [ngStyle]="{width: currentState?.code === 'CANCELLED' || 
+        currentState?.code === 'ANNULLED' || 
+        currentState?.code === 'CANCELLATION_PENDING' 
+       ? '37%' : '25%'}"
+    >
+      <svg
+        class="svg-icon svg-icon--delivery"
+        focusable="false"
+        aria-hidden="true"
+      >
+        <use href="assets/svg/skapa.svg#clipboard-checkmark"></use>
+      </svg>
+      <div class="label-state">
+        <p class="clear">{{currentState?.code === 'CONFIRMED' ? currentState?.name : 'Confirmado'}}</p>
+      </div>
+      <p>
+        {{currentState?.code === 'CONFIRMED' ? currentState?.date : previousStates?.[0]?.date }}
+      </p>
+    </li>
+    <li
+      [hidden]="currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' || currentState?.code === 'CANCELLATION_PENDING' "
+      [ngClass]="[processStage]"
+      [ngStyle]="{width: '25%'}"
+    >
+      <svg
+        class="svg-icon svg-icon--delivery"
+        focusable="false"
+        aria-hidden="true"
+      >
+        <use href="assets/svg/skapa.svg#box"></use>
+      </svg>
+      <div class="label-state">
+        <p class="clear">{{currentState?.code === 'IN_PROCESS' ? currentState?.name : 'Despachado'}}</p>
+      </div>
+      <p>
+        {{ getStepDates(1, 'IN_PROCESS') }}
+      </p>
+    </li>
+    <li
+      [hidden]="currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' || currentState?.code === 'CANCELLATION_PENDING' "
+      [ngClass]="[shippingStage]"
+      [ngStyle]="{width: '25%'}"
+      *ngIf="deliveryInformation?.code === 'HOME_DELIVERY' || deliveryInformation?.code === 'UNKNOWN'"
+    >
+      <svg
+        class="svg-icon svg-icon--delivery"
+        focusable="false"
+        aria-hidden="true"
+      >
+        <use href="assets/svg/skapa.svg#delivery-truck"></use>
+      </svg>
+      <div class="label-state">
+        <p class="clear">{{currentState?.code === 'IN_TRANSIT' ? currentState?.name : 'En tránsito'}}</p>
+      </div>
+      <p>
+        {{ getStepDates(2, 'IN_TRANSIT') }}
+      </p>
+    </li>
+    <li
+      [hidden]="currentState?.code === 'CANCELLED' || currentState?.code === 'ANNULLED' || currentState?.code === 'CANCELLATION_PENDING' "
+      [ngClass]="[collectStage]"
+      [ngStyle]="{width: '25%'}"
+      *ngIf="deliveryInformation?.code === 'COLLECT'"
+    >
+      <svg
+        class="svg-icon svg-icon--delivery"
+        focusable="false"
+        aria-hidden="true"
+      >
+        <use href="assets/svg/skapa.svg#click-and-collect"></use>
+      </svg>
+      <div class="label-state">
+        <p class="clear">{{currentState?.code === 'READY_FOR_PICKUP' ? currentState?.name : 'Listo para retiro'}}</p>
+      </div>
+      <p>
+        {{ getStepDates(2, 'READY_FOR_PICKUP') }}
+      </p>
+    </li>
+    <li
+      [ngClass]="[finalStage]"
+      [ngStyle]="{width: currentState?.code === 'CANCELLED' || 
+        currentState?.code === 'ANNULLED' || 
+        currentState?.code === 'CANCELLATION_PENDING' 
+        ? '37%' : '25%'}"
+    >
+      <svg class="svg-icon svg-icon--delivery" focusable="false" aria-hidden="true">
+        <use 
+        *ngIf="checkmark"
+          href="assets/svg/skapa.svg#checkmark-circle"
+        ></use>
+        <use 
+        *ngIf="box_cancel"
+          href="assets/svg/skapa.svg#box-cancel"
+        ></use>
+        <use 
+        *ngIf="pending_clock"
+          href="assets/svg/skapa.svg#clock"
+        ></use>
+      </svg>
+      <div class="label-state">
+        <p class="clear">{{labelState}}</p>
+      </div>
+      <p>
+        {{
+          currentState?.code === 'DELIVERED'
+          || currentState?.code === 'CANCELLED' 
+          || currentState?.code === 'ANNULLED'
+          || currentState?.code === 'DELIVERY_FAILED'
+          || currentState?.code === 'CANCELLATION_PENDING' 
+          || currentState?.code === 'DELIVERY_PENDING'
+          || currentState?.code === 'PARTIAL_DELIVERY'
+          ? currentState?.date : previousStates?.[3]?.date
+        }}
+      </p>
+    </li>
+  </ul>
+</div>

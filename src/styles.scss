@@ -1,0 +1,143 @@
+/* You can add global styles to this file, and also import other style files */
+@import "_default-theme.scss";
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+:root {
+  font-family: var(--ikea-font);
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$md-primary-color: (
+  50: #e2e2e2,
+  100: #b8b8b8,
+  200: #888888,
+  300: #585858,
+  400: #353535,
+  500: #111111,
+  600: #0f0f0f,
+  700: #0c0c0c,
+  800: #0a0a0a,
+  900: #050505,
+  A100: #ff4e4e,
+  A200: #ff1b1b,
+  A400: #e70000,
+  A700: #ce0000,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$ikea-palette-primary: mat-palette($md-primary-color);
+$ikea-palette-accent: mat-palette($mat-pink, A200, A100, A400);
+$ikea-palette-theme: mat-light-theme(
+  (
+    color: (
+      primary: $ikea-palette-primary,
+      accent: $ikea-palette-accent,
+    ),
+  )
+);
+@include angular-material-theme($ikea-palette-theme);
+
+.section-border {
+  border-radius: 3px;
+}
+
+.mat-calendar-body-selected {
+  background-color: #0058a3;
+  color: #fff;
+}
+
+.m-t-10 {
+  margin-top: 10px;
+}
+.m-b-10 {
+  margin-bottom: 10px;
+}
+.m-r-10 {
+  margin-right: 10px;
+}
+.m-l-10 {
+  margin-left: 10px;
+}
+.m-t-16 {
+  margin-top: 16px;
+}
+.m-b-16 {
+  margin-bottom: 16px;
+}
+.m-r-16 {
+  margin-right: 16px;
+}
+.m-l-16 {
+  margin-left: 16px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+.m-b-20 {
+  margin-bottom: 20px;
+}
+.m-r-20 {
+  margin-right: 20px;
+}
+.m-l-20 {
+  margin-left: 20px;
+}
+.p-t-10 {
+  margin-top: 10px;
+}
+.p-b-10 {
+  margin-bottom: 10px;
+}
+.p-r-10 {
+  margin-right: 10px;
+}
+.p-l-10 {
+  margin-left: 10px;
+}
+.p-t-16 {
+  margin-top: 16px;
+}
+.p-b-16 {
+  margin-bottom: 16px;
+}
+.p-r-16 {
+  margin-right: 16px;
+}
+.p-l-16 {
+  margin-left: 16px;
+}
+.p-t-20 {
+  margin-top: 20px;
+}
+.p-b-20 {
+  margin-bottom: 20px;
+}
+.p-r-20 {
+  margin-right: 20px;
+}
+.p-l-20 {
+  margin-left: 20px;
+}
+.step4-fo.resumen p:not(:last-of-type) {
+  margin-bottom: 0px;
+}
+

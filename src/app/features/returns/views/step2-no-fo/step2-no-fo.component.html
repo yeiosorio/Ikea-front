@@ -1,0 +1,248 @@
+<div class="container">
+  <div class="step2-no-fo content">
+    <div class="step2-no-fo__header">
+      <div class="step__indicator">2</div>
+      <p>Productos a devolver</p>
+    </div>
+    <div class="step2-no-fo__table">
+      <ng-container
+        *ngIf="showReturnTable === true;
+        then returnProductsTemplate;
+        else previewTemplate
+      ">
+      </ng-container>
+      <ng-template #previewTemplate>
+        <div class="block-info">
+					<div class="head-info">
+						<div class="text-info text--sku">SKU</div>
+						<div class="text-info text--item">Ítem</div>
+						<div class="text-info text--total">Total a devolver</div>
+					</div>
+					<ul *ngIf="returnProducts21.length > 0 else emptyPreviewTemplate" class="accordion accordion--padded">
+            <ng-container *ngFor="let returnProduct21 of returnProducts21; let i = index;">
+              <li [ngClass]="[accIsOpen[i] ? 'accordion__item--active' : '', 'accordion__item']" [id]="'accordion_00'+i">
+                <div role="heading" aria-level="2">
+                  <button (click)="accIsOpen[i] = !accIsOpen[i]" 
+                    type="button"
+                    class="accordion__heading accordion-item-header"
+                    [attr.aria-controls]="'SEC_accordion_00'+i" 
+                    [attr.aria-expanded]="accIsOpen[i]"
+                  >
+                    <span class="accordion-item-header__title-wrapper">
+                      <div class="accordion-item-header__list-title">
+                        <div class="text-title sku">{{ returnProduct21.sku }}</div>
+                        <div class="text-title item">{{ returnProduct21.name }}</div>
+                        <div class="text-title total">
+                          <span>{{ returnProduct21.quantityReturn }}</span>
+                          <svg (click)="editItemOne(returnProduct21.sku)" viewBox="0 0 24 24" class="svg-icon edit-item">
+                            <use href="assets/svg/skapa.svg#pencil"></use>
+                          </svg>
+                          <svg (click)="visible01 = true; skuDelete = returnProduct21.sku;stopPropagation($event)" viewBox="0 0 24 24" class="svg-icon trash-item">
+                            <use href="assets/svg/skapa.svg#trash-can"></use>
+                          </svg>
+                        </div>
+                      </div>
+                    </span>
+                    <svg viewBox="0 0 24 24"
+                      [ngClass]="[accIsOpen[i] ? 'svg-icon--rotate-180' : '']"
+                      class="svg-icon accordion-item-header__icon">
+                      <use href="assets/svg/skapa.svg#chevron-down"></use>
+                    </svg>
+                  </button>
+                </div>
+                <div [id]="'SEC_accordion_00'+i" class="accordion__content"
+                  [attr.aria-labelledby]="'accordion_00'+i" role="region">
+                  <div class="container-list-info">
+                    <div class="header-action-list">
+                      <div class="text-action-list quantity">Cantidad</div>
+                        <div class="text-action-list reason">Motivo de devolución</div>
+                        <div class="text-action-list subreason">Submotivo</div>
+                        <div class="text-action-list condition">Condiciones del producto</div>
+                    </div>
+                    <div>
+                      <ul [id]="'unique-id'" id="unique-id" class="action-list action-list--regular">
+                        <ng-container *ngFor="let reasonsReturn21 of returnProduct21.reasonsReturnList; let u = index;">
+                          <li [id]="'unique-id'+u" class="action-list-item">
+                            <div class="action-list-item__action">
+                              <div class="action-list-item__label-number quantity-row">{{ reasonsReturn21.amount }}</div>
+                              <span class="action-list-item__label-container reason-row"><p>{{ motiveValue(reasonsReturn21.return) }}</p></span>
+                              <span class="action-list-item__label-container subreason-row"><p>{{ subMotiveValue(reasonsReturn21.return, reasonsReturn21.submotive) }}</p></span>
+                              <span class="action-list-item__label-container condition-row"><p>{{ conditionValue(reasonsReturn21.conditions) }}</p></span>
+                            </div>
+                          </li>
+                        </ng-container>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ng-container>
+					</ul>
+          <ng-template #emptyPreviewTemplate>
+            <div class="content-empty-preview">
+              <p>No hay productos a devolver, por favor "+ Agregar otro ítem".</p>
+            </div>
+          </ng-template>
+				</div>
+      </ng-template>
+      <ng-template #returnProductsTemplate>
+        <div class="container-list-return">
+          <form [formGroup]="returnProductsform">
+              <div class="content-list-return">
+                  <div class="header-list-return">
+                      <div class="header-colum">SKU</div>
+                      <div class="header-colum">Ítem</div>
+                      <div class="header-colum">Total a devolver</div>
+                  </div>
+                  <!-- <p>{{ returnProductsform.value.checkProductsGlobal }}</p> -->
+                  <div class="body-list-return">
+                    <ng-container formArrayName="returnProductList">
+                      <ng-container *ngIf="returnProductList.controls.length > 0; else emptyMessageTemplate">
+                          <ng-container *ngFor="let returnProductForm of returnProductList.controls; let i = index;">
+                              <ng-container [formGroupName]="i">
+                                <!-- <p>{{i}}</p> -->
+                                <app-create-reasons-return
+                                    [idxNumber]="i"
+                                    [formGName]="'returnProductList'"
+                                    [reasonsubmotiveConditions]="reasonsubmotiveConditions"
+                                >
+                                </app-create-reasons-return>
+                              </ng-container>
+                          </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                  <ng-template #emptyMessageTemplate>
+                      <div class="container-add-product" *ngIf="!loadingReasons else loadingTemplate">
+                        <app-message
+                            [messageObject]="errorMessage"
+                        ></app-message>
+                        <div class="content-add-product">
+                          <button (click)="addItemOne()" type="button" class="btn leading-icon btn--small btn--secondary btn--add-item">
+                            <span class="btn__inner">
+                              <svg viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                <use href="assets/svg/skapa.svg#plus"></use>
+                              </svg>
+                              <span class="btn__label">Agregar otro ítem</span>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                      <ng-template #loadingTemplate>
+                        <div class="storybook-container" dir="ltr">
+                            <div class="storybook-readme-story">
+                                <div>
+                                    <div>
+                                        <div style="padding: 20px; background: rgb(255, 255, 255);">
+                                            <span class="loading loading--label-center" aria-live="polite">
+                                                <span class="loading__ball loading__ball--large loading__ball--primary" aria-hidden="true"></span>
+                                                <span aria-hidden="true" class="loading__text loading__text--fade-in">Cargando</span>
+                                                <span class="loading__sr-only-text">Cargando</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                  </ng-template>
+                  <!-- <button (click)="addItemProduct()">Add</button> -->
+              </div>
+          </form>
+      </div>
+      </ng-template>
+
+    </div>
+    <ng-container *ngIf="showReturnTable === false">
+      <button (click)="addItemOne()" type="button" class="btn leading-icon btn--small btn--secondary btn--add-item">
+        <span class="btn__inner">
+          <svg viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+            <use href="assets/svg/skapa.svg#plus"></use>
+          </svg>
+          <span class="btn__label">Agregar otro ítem</span>
+        </span>
+      </button>
+    </ng-container>
+    <div class="step2-no-fo__btns">
+      <div class="cancel">
+        <button (click)="visibleModal = true" type="button" class="btn btn--tertiary">
+          <span class="btn__inner">
+            <span class="btn__label">Cancelar solicitud</span>
+          </span>
+        </button>
+      </div>
+      <div class="btns-right">
+        <div class="back">
+          <button
+            (click)="backStep()"
+            style="margin-right: 74px;"
+            type="button"
+            class="btn btn--tertiary"
+          >
+            <span class="btn__inner">
+              <span class="btn__label">Atrás</span>
+            </span>
+          </button>
+        </div>
+        <div class="nextStep">
+          <button *ngIf="showReturnTable" (click)="nextStep2()" type="button" class="btn trailing-icon btn--secondary" [attr.disabled]="!validateNextBtn() ? '' : null">
+            <span class="btn__inner">
+              <svg viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"
+                ></path>
+              </svg>
+              <span class="btn__label">Siguiente</span>
+            </span>
+          </button>
+          <button *ngIf="!showReturnTable" (click)="nextStep()" type="button" class="btn trailing-icon btn--secondary" [attr.disabled]="!(returnProducts21.length > 0) ? '' : null">
+            <span class="btn__inner">
+              <svg viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"
+                ></path>
+              </svg>
+              <span class="btn__label">Confirmar y seguir</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL ELIMINAR STEP2 -->
+<div class="modal-wrapper" [ngClass]="[visible01 ? 'modal-wrapper--open' : 'modal-wrapper--close']" tabindex="-1">
+  <div class="modal-wrapper__backdrop modal-wrapper__backdrop--dark"></div>
+  <div *ngIf="visible01" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+  <div *ngIf="visible01" data-focus-guard="true" tabindex="1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+  <div *ngIf="visible01" data-focus-lock-disabled="false">
+      <div aria-label="Accessibility header for a modal" class="prompt prompt--enter" aria-modal="true" role="dialog"
+          tabindex="-1">
+          <div class="prompt__content-wrapper">
+              <div tabindex="0" class="prompt__content">
+                  <h2 class="prompt__heading">¿Seguro que deseas eliminar este Ítem?</h2>
+                  <p>Esta acción no se podrá revertir.</p>
+              </div>
+      <div class="modal-footer modal-footer--compact modal-footer--borderless">
+        <button (click)="visible01= false; skuDeleteItem(skuDelete);" type="button" class="btn btn--small btn--primary">
+          <span class="btn__inner">
+            <span class="btn__label">Eliminar Ítem</span>
+          </span>
+        </button>
+        <button (click)="visible01= false" type="button" class="btn btn--small btn--secondary">
+          <span class="btn__inner"><span class="btn__label">Cancelar</span></span>
+        </button>
+      </div>
+          </div>
+      </div>
+  </div>
+  <div *ngIf="visible01" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+</div>
+<app-sk-modal-return-cancel [(visible)]="visibleModal"></app-sk-modal-return-cancel>

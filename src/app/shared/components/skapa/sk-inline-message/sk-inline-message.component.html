@@ -1,0 +1,18 @@
+<div aria-hidden="false" class="inline-message" [ngClass]="'inline-message--'+typeMessage">
+    <svg *ngIf="typeMessage === 'informative'" focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon" aria-hidden="true">
+        <use href="assets/svg/skapa.svg#information-circle"></use>
+    </svg>
+    <svg *ngIf="typeMessage === 'cautionary'" focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon" aria-hidden="true">
+        <use href="assets/svg/skapa.svg#warning-triangle"></use>
+    </svg>
+    <svg *ngIf="typeMessage === 'negative'" focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon" aria-hidden="true">
+        <use href="assets/svg/skapa.svg#incorrect"></use>
+    </svg>
+    <svg *ngIf="typeMessage === 'positive'" focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon" aria-hidden="true">
+        <use href="assets/svg/skapa.svg#checkmark-circle"></use>
+    </svg>
+    <div>
+        <p class="inline-message__title">{{ textTitle }}</p>
+        <span *ngIf="textDescription !== ''" [innerHTML]="textDescription" class="inline-message__body"></span>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+
+<div class="block-body">
+    <div class="container-dashboard">
+        <h1>Reportes</h1>
+        <p>Para revisar los reportes, ingresa tu <strong>contraseña de acceso a reportes:</strong></p>
+        <form [formGroup]="reportForm">
+
+            <div class="content-input">
+                <div class="form-field"
+                    [ngClass]="{
+                        'form-field--error': reportForm.controls['codeForm'].invalid && (reportForm.controls['codeForm'].dirty || reportForm.controls['codeForm'].touched),
+                        'form-field--valid': reportForm.controls['codeForm'].valid && (reportForm.controls['codeForm'].dirty || reportForm.controls['codeForm'].touched)
+                    }">
+                    <div class="input-field input-field--trailing-icon label-wrapper label-wrapper--text-input"
+                        [ngClass]="{
+                            'input-field--error': reportForm.controls['codeForm'].invalid && (reportForm.controls['codeForm'].dirty || reportForm.controls['codeForm'].touched),
+                            'input-field--success': reportForm.controls['codeForm'].valid && (reportForm.controls['codeForm'].dirty || reportForm.controls['codeForm'].touched)
+                        }">
+                        <label for="pass" class="" title="Label">Contraseña de acceso a reportes</label>
+                        <div class="input-field__wrapper">
+                            <input
+                                [type]="visiblePassword ? 'password' : 'text'"
+                                formControlName="codeForm"
+                                id="pass" class="" required>
+                            <button (click)="visiblePassword = !visiblePassword" type="button" class="btn btn--xsmall btn--icon-plain">
+                                <span class="btn__inner">
+                                    <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                        <use [attr.href]="visiblePassword ? 'assets/svg/skapa.svg#visibility-hide': 'assets/svg/skapa.svg#visibility-show'"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                    <div *ngIf="reportForm.controls['codeForm'].invalid && (reportForm.controls['codeForm'].dirty || reportForm.controls['codeForm'].touched)" class="form-field__content">
+                        <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                            <span class="form-field__icon-wrapper">
+                                <svg class="svg-icon form-field__icon" focusable="false" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#notice-small"></use>
+                                </svg>
+                            </span>
+                            <span *ngIf="reportForm.controls['codeForm'].hasError('required')" class="form-field__message">Este campo es requerido</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="content-button">
+                <button
+                    (click)="onClickSubmit()"
+                    type="button"
+                    class="btn btn--primary btn--fluid"
+                    [attr.disabled]="!reportForm.valid ? '' : null">
+                    <span class="btn__inner">
+                        <span class="btn__label">Ingresar</span>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-sk-toast
+    [isOpen]="errorReportMessage"
+    [text]="'Al parecer hay algún error con tus datos. Verifica que tu contraseña sea la correcta.'"
+    [actionButtonText]="'Reintentar'"
+    (actionClick)="errorReportMessage = false;"
+></app-sk-toast>

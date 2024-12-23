@@ -1,0 +1,231 @@
+<form autocomplete="off" [formGroup]="formParent">
+    <!-- <div class="item-return active-check"> -->
+    <div [attr.id]="formParent.value.sku" class="item-return"
+        [ngClass]="[formParent.value.check ? 'active-check' : '']">
+        <!-- <p>{{ formParent.value.check }}</p> -->
+        <div class="item-header">
+            <div class="item-header-column">
+                <div class="form-field">
+                    <div class="checkbox--subtle checkbox">
+                        <input
+                            type="checkbox"
+                            formControlName="check"
+                        />
+                        <span class="checkbox__symbol"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="item-header-column">{{ formParent.value.sku }}</div>
+            <div class="item-header-column">{{ formParent.value?.name }}</div>
+            <div class="item-header-column">
+    
+                <ng-container *ngIf="!formParent.value.check; else totalReturnTemplate">
+                    <div class="total-return">{{ formParent.value.quantityTotal }}</div>
+                </ng-container>
+    
+                <ng-template #totalReturnTemplate>
+                    <!-- <div class="form-field form-field--error"> -->
+                    <div class="form-field">
+                        <!-- <div class="select select--error label-wrapper label-wrapper--text-input select--hint"> -->
+                        <div class="select label-wrapper label-wrapper--text-input select--hint">
+                            <!-- <label for="example-id" class="" title="Label">Label</label> -->
+                            <div class="select__wrapper">
+                                <!-- <select id="example-id" aria-describedby="error-msg-id" type="text"> -->
+                                <select formControlName="quantityReturn" (change)="changeQuantityReturn($event.target)" aria-describedby="helper-msg-id" type="text">
+                                    <option [ngValue]="-1">--</option>
+                                    <option *ngFor='let in of counter(formParent.value.quantityTotal) ;let i = index' [ngValue]="i+1">{{ i+1 }}</option>
+                                </select>
+                                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#chevron-down-small"></use>
+                                </svg>
+                                <span class="select__border"></span>
+                            </div>
+                        </div>
+                        <!-- <div class="form-field__content">
+                            <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                                <span class="form-field__icon-wrapper">
+                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                        <path d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                    </svg>
+                                </span>
+                                <span class="form-field__message">Validation msg text</span>
+                            </span>
+                        </div> -->
+                    </div>
+                    <div class="total-value"> de {{ formParent.value.quantityTotal }}</div>
+                </ng-template>
+    
+            </div>
+        </div>
+        <div *ngIf="formParent.value.check && formParent.value.quantityReturn > 0" class="item-body">
+            <ng-container formArrayName="reasonsReturnList">
+                <!-- <p>ng01</p> -->
+                <ng-container *ngIf="reasonsReturnList.controls.length > 0">
+                    <!-- <p>ng02 {{reasonsReturnList.controls.length}}</p> -->
+                    <ng-container *ngFor="let reasonsReturnForm of reasonsReturnList.controls; let u = index">
+                        <!-- <p>{{ u + 'hi'}} {{ reasonsReturnForm.value.amount }}</p> -->
+                        <ng-container [formGroupName]="u">
+                            <!-- <p>{{u}}</p> -->
+                            <div class="list-reason">
+                                <div *ngIf="u === 0" class="header-reason">
+                                    <div class="header-reason-column">Cantidad</div>
+                                    <div class="header-reason-column">Motivo de devolución</div>
+                                    <div class="header-reason-column">Submotivo</div>
+                                    <div class="header-reason-column">Condiciones del producto</div>
+                                </div>
+                                <div class="body-reason">
+                                    <div class="item-reason">
+                                        <div class="form-field">
+                                            <!-- <div class="select select--error label-wrapper label-wrapper--text-input select--hint"> -->
+                                            <div class="select label-wrapper label-wrapper--text-input select--hint">
+                                                <!-- <label for="example-id" class="" title="Label">Label</label> -->
+                                                <div class="select__wrapper">
+                                                    <!-- <select id="example-id" aria-describedby="error-msg-id" type="text"> -->
+                                                    <select formControlName="amount" (change)="changeQuantityItemReturn($event.target,u)" aria-describedby="helper-msg-id" type="text">
+                                                        <option [ngValue]="-1">--</option>
+                                                        <option *ngFor='let in of counter(limitQuantityItemReturns(u)) ;let p = index' [ngValue]="p+1">{{ p+1 }}</option>
+                                                    </select>
+                                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                                        <use href="assets/svg/skapa.svg#chevron-down-small"></use>
+                                                    </svg>
+                                                    <span class="select__border"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-field__content">
+                                                <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                                                    <span class="form-field__icon-wrapper">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                                            <path d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="form-field__message">Validation msg text</span>
+                                                </span>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="item-reason">
+                                        <div class="form-field">
+                                            <!-- <div class="select select--error label-wrapper label-wrapper--text-input select--hint"> -->
+                                            <div class="select label-wrapper label-wrapper--text-input select--hint">
+                                                <!-- <label for="example-id" class="" title="Label">Label</label> -->
+                                                <div class="select__wrapper">
+                                                    <!-- <select id="example-id" aria-describedby="error-msg-id" type="text"> -->
+                                                    <select formControlName="return" (change)="changeMotiveSelect($event.target, u)" aria-describedby="helper-msg-id" type="text">
+                                                        <option [value]="''">Selecciona un motivo:</option>
+                                                        <option *ngFor='let motive of reasonsubmotiveConditions.reasons' [value]="motive.code">{{ motive.name }}</option>
+                                                    </select>
+                                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                                        <use href="assets/svg/skapa.svg#chevron-down-small"></use>
+                                                    </svg>
+                                                    <span class="select__border"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-field__content">
+                                                <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                                                    <span class="form-field__icon-wrapper">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                                            <path d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="form-field__message">Validation msg text</span>
+                                                </span>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="item-reason">
+                                        <div class="form-field">
+                                            <!-- <div class="select select--error label-wrapper label-wrapper--text-input select--hint"> -->
+                                            <div class="select label-wrapper label-wrapper--text-input select--hint">
+                                                <!-- <label for="example-id" class="" title="Label">Label</label> -->
+                                                <div class="select__wrapper">
+                                                    <!-- <select id="example-id" aria-describedby="error-msg-id" type="text"> -->
+                                                    <select formControlName="submotive" aria-describedby="helper-msg-id" type="text">
+                                                        <option [value]="''">Selecciona un submotivo:</option>
+                                                        <ng-container *ngIf="subMotivesList(u).length > 0">
+                                                            <option *ngFor='let submot of subMotivesList(u)' [value]="submot.code">{{ submot.name }}</option>
+                                                        </ng-container>
+                                                    </select>
+                                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                                        <use href="assets/svg/skapa.svg#chevron-down-small"></use>
+                                                    </svg>
+                                                    <span class="select__border"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-field__content">
+                                                <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                                                    <span class="form-field__icon-wrapper">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                                            <path d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="form-field__message">Validation msg text</span>
+                                                </span>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="item-reason">
+                                        <div class="form-field">
+                                            <!-- <div class="select select--error label-wrapper label-wrapper--text-input select--hint"> -->
+                                            <div class="select label-wrapper label-wrapper--text-input select--hint">
+                                                <!-- <label for="example-id" class="" title="Label">Label</label> -->
+                                                <div class="select__wrapper">
+                                                    <!-- <select id="example-id" aria-describedby="error-msg-id" type="text"> -->
+                                                    <select formControlName="conditions" aria-describedby="helper-msg-id" type="text">
+                                                        <option [value]="''">Selecciona la condicón de producto:</option>
+                                                        <option *ngFor='let cond of reasonsubmotiveConditions.conditions' [value]="cond.code">{{ cond.name }}</option>
+                                                    </select>
+                                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon select__chevron-down" aria-hidden="true">
+                                                        <use href="assets/svg/skapa.svg#chevron-down-small"></use>
+                                                    </svg>
+                                                    <span class="select__border"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-field__content">
+                                                <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                                                    <span class="form-field__icon-wrapper">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                                            <path d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <span class="form-field__message">Validation msg text</span>
+                                                </span>
+                                            </div> -->
+                                        </div>
+                                        <div class="icon-action">
+                            
+                                            <ng-container *ngIf="ultimateActionItem(u); else iconActionTemplate">
+                                                <button (click)="addItemReasonPlus()" aria-disabled="false" type="button"
+                                                    class="btn btn--xsmall btn--icon-tertiary"  
+                                                    [attr.disabled]="validateActionsItem(u) ? null : '' "
+                                                >
+                                                    <span class="btn__inner">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                                            <use href="assets/svg/skapa.svg#plus"></use>
+                                                        </svg>
+                                                        <span class="btn__label">Add</span>
+                                                    </span>
+                                                </button>
+                                            </ng-container>
+                                            <ng-template #iconActionTemplate>
+                                                <button (click)="deleteItemReason(u)" aria-disabled="false" type="button" class="btn btn--xsmall btn--icon-tertiary btn-trash" [attr.disabled]="false ? '' : null">
+                                                    <span class="btn__inner">
+                                                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                                            <use href="assets/svg/skapa.svg#trash-can"></use>
+                                                        </svg>
+                                                        <span class="btn__label">trash</span>
+                                                    </span>
+                                                </button>
+                                            </ng-template>
+                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</form>
+

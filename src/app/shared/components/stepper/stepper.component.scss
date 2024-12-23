@@ -1,0 +1,117 @@
+.stepper-container {
+  display: inline-block;
+  width: 109%;
+  ul.progressbar {
+    counter-reset: step;
+    margin-left: -100px;
+  }
+  .progressbar li {
+    list-style-type: none;
+    float: left;
+    font-size: 16px;
+    position: relative;
+    text-align: center;
+    color: #767676;
+    width: 25%;
+  }
+
+  .progressbar li p {
+    font-size: 14px;
+  }
+
+  .progressbar li .label-state p {
+    margin-top: 0px;
+  }
+
+  .progressbar li svg {
+    display: none;
+  }
+
+  .progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    height: 24px;
+    width: 24px;
+    line-height: 20px;
+    display: block;
+    border: 2px solid #929292;
+    text-align: center;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+  }
+  .progressbar li:after {
+    width: 100%;
+    height: 1px;
+    content: "";
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 12px;
+    left: -50%;
+    z-index: 0;
+  }
+  .progressbar li:first-child:after {
+    content: none;
+  }
+
+  .progressbar li .step-indicator {
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-indicator {
+    height: 22px;
+    width: 22px;
+  }
+
+  .progressbar li.currentStep:before {
+    height: 35px;
+    width: 35px;
+    border: none;
+    margin-top: -5px;
+    line-height: 35px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  .progressbar li.currentStep p {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+  }
+
+  .progressbar li.currentStep .label-state {
+    margin-top: -5px;
+  }
+
+  .progressbar li.beforeStep:before {
+    border: none;
+    line-height: 23px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  .progressbar li.beforeStep p {
+    font-weight: bold;
+  }
+
+  .progressbar li.beforeStep:before {
+    content: '';
+    font-weight: bold;
+  }
+
+  .progressbar li.beforeStep svg {
+    margin-top: -69px;
+    display: inline;
+    position: relative;
+    z-index: 2;
+    color: white;
+  }
+
+  .progressbar li.beforeStep .label-state {
+    margin-top: -24px;
+  }
+
+  
+}

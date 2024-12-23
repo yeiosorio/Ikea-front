@@ -1,0 +1,176 @@
+<div class="container">
+    <div class="step4-fo content">
+        <ng-container
+            *ngIf="CMRView === true;
+            then CMRCodeTemplate;
+            else resumenTemplate
+        "></ng-container>
+        <ng-template #CMRCodeTemplate>
+            <div class="step4-fo__header">
+                <div class="step__indicator">4</div>
+                <p>Número caso CRM</p>
+            </div>
+            <form [formGroup]="CMRForm" >
+                <div class="step4-fo__name">
+                    <div class="form-field ">
+                        <div class="input-field label-wrapper label-wrapper--text-input">
+                            <label for="example-id" class="" title="Nombre">CRM id</label>
+                            <div class="input-field__wrapper">
+                                <input formControlName="CMRCode" type="text" maxLength="25" autofocus/>
+                                <span class="input-field__border"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="step4-fo__btns">
+                    <div class="cancel">
+                        <button (click)="visibleModal = true" type="button" class="btn btn--tertiary">
+                            <span class="btn__inner">
+                                <span class="btn__label">Cancelar solicitud</span>
+                            </span>
+                        </button>
+                    </div>
+                   <div class="btns-right">
+                        <div class="back">
+                            <button (click)="backStep()" type="button" class="btn btn--tertiary" style="margin-right: 74px;">
+                                <span class="btn__inner">
+                                    <span class="btn__label">Atrás</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="nextStep">
+                            <button [disabled]="CMRForm.invalid" (click)="nextStep()" type="button" class="btn trailing-icon btn--secondary">
+                                <span class="btn__inner">
+                                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+                                        </path>
+                                    </svg>
+                                    <span class="btn__label">Siguiente</span>
+                                </span>
+                            </button>
+                        </div>
+                   </div>
+                </div>
+            </form>
+        </ng-template>
+        <ng-template #resumenTemplate>
+            <div class="step4-fo resumen">
+                <div class="resumen__title">
+                    <b>Resumen solicitud de devolución</b>
+                </div>
+                <div class="client">
+                    <p class="title"><b>Datos del cliente</b></p>
+                    <div class="block-name">
+                        <b class="subtitle">Nombre</b>
+                        <p class="name">{{sessionDataSteps['foStep1']['name']}}</p>
+                    </div>
+                    <div class="block-rut">
+                        <b class="rut subtitle">Nº de documento</b>
+                        <p class="numberRut">{{sessionDataSteps['foStep1']['dni']}}</p>
+                    </div>
+                    <div class="">
+                        <b class="rut subtitle">Correo electrónico</b>
+                        <p class="numberRut">{{sessionDataSteps['foStep1']['email']}}</p>
+                    </div>
+                </div>
+                <div class="returnProducts">
+                    <div class="title">
+                        <b>Productos a devolver</b><a (click)="redirectToStep2()" class="editLink">Modificar</a>
+                    </div>
+                    <div *ngFor="let itemProducts of foStep2">
+                        <div *ngFor="let itemReasonsReturn of itemProducts['reasonsReturnList']" class="returnProductsItem">
+                            <p><b>Nombre:</b> {{itemProducts['name']}}</p>
+                            <p><b>Cantidad a devolver:</b> {{itemReasonsReturn['amount']}}</p>
+                            <p><b>Motivo devolución:</b > {{motiveValue(itemReasonsReturn['return'])}} - {{subMotiveValue(itemReasonsReturn['return'], itemReasonsReturn['submotive'])}}</p>
+                            <p><b>Condiciones del producto:</b> {{conditionValue(itemReasonsReturn['conditions'])}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="returnType">
+                    <div class="title">
+                        <b>Tipo de devolución</b><a (click)="redirectToStep3()" class="editLink">Modificar</a>
+                    </div>
+                    <span>
+                        <b class="subtitle">{{optionTab['optionHome'] ? 'Retiro a domicilio' : 'Punto de entrega' }}</b>
+                        <p class="address" *ngIf="!verifiedAddress()">
+                            {{address}}
+                        </p>
+                        <p class="address" *ngIf="verifiedAddress()">
+                            {{sessionDataSteps.foStep3Address.cityName}},
+                            {{sessionDataSteps.foStep3Address.storeName}}
+                        </p>
+                        <p *ngIf="optionTab['optionHome']">
+                            {{sessionDataSteps.foAvailabilityDate.labelDate}}
+                        </p>
+                    </span>
+                </div>
+                <div class="CMRCode">
+                    <div class="title">
+                        <b>Número caso CRM</b><a (click)="redirectToStep4()" class="editLink">Modificar</a>
+                    </div>
+                    <b class="subtitle">CRMid</b>
+                    <p class="code">{{CMRForm.value.CMRCode}}</p>
+                </div>
+
+                <div class="step4-fo__btns">
+                    <div class="cancel">
+                        <button (click)="visibleModal = true" type="button" class="btn btn--tertiary">
+                            <span class="btn__inner">
+                                <span (click)="visibleModal = true" class="btn__label">Cancelar solicitud</span>
+                            </span>
+                        </button>
+                    </div>
+                   <div class="btns-right">
+                        <div class="nextStep">
+                            <button [disabled]="creatingReverse" (click)="reverseOrderCreate()" type="button" class="btn trailing-icon btn--primary">
+                                <span class="btn__inner btn-return-request">
+                                    <span class="btn__label">Solicitar devolución</span>
+                                </span>
+                            </button>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<div class="modal-wrapper" [ngClass]="[visible ? 'modal-wrapper--open' : 'modal-wrapper--close']" tabindex="-1">
+    <div class="modal-wrapper__backdrop modal-wrapper__backdrop--dark"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-lock-disabled="false">
+        <div aria-label="Accessibility header for a modal" class="prompt prompt--enter" aria-modal="true" role="dialog"
+            tabindex="-1">
+            <div class="prompt__content-wrapper">
+                <div tabindex="0" class="prompt__content">
+                    <h2 class="prompt__heading">Solicitud generada exitosamente</h2>
+                    <div class="requestCode">
+                        <p>Nº de solicitud (RLO)</p>
+                        <b>{{reverseLogisticOrderId}}</b>
+                    </div>
+                    <div class="returnTypeModal">
+                        <p>Metodo de devolución</p>
+                        <span>{{optionTab['optionHome'] ? 'Retiro a domicilio' : 'Punto de entrega' }}</span>
+                    </div>
+                    <div class="datePickUp" *ngIf="sessionDataSteps.foAvailabilityDate">
+                        <p>Fecha de retiro</p>
+                        <span>{{sessionDataSteps.foAvailabilityDate.labelDate}}</span>
+                    </div>
+                    <div class="crm">
+                        <p>Nº caso CRM</p>
+                        <span>{{CMRForm.value.CMRCode}}</span>
+                    </div>
+                </div>
+                <div class="modal-footer modal-footer--borderless">
+                    <button (click)="modalClosed()" type="button" class="btn btn--primary">
+                        <span class="btn__inner"><span class="btn__label">Ir al inicio</span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+</div>
+<app-sk-modal-return-cancel [(visible)]="visibleModal"></app-sk-modal-return-cancel>

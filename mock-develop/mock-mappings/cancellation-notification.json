@@ -1,0 +1,108 @@
+{
+  "cancellations/:idOrder/notification/:option": {
+    "PATCH": {
+      "codeResponse": "200",
+      "delay": "2500",
+      "responses": [
+        {
+          "statusCode": "200",
+          "headers": {
+            "request": {
+            },
+            "response": {
+              "Access-Control-Allow-Headers": "*"
+            }
+          },
+          "body": {
+            "response": true
+          }         
+        },
+        {
+          "statusCode": "400",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "404",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "412",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "500",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        },
+        {
+          "statusCode": "503",
+          "headers": {},            
+          "body": {
+            "code": "TL0001",
+            "description": "Error al llamar al servicio",
+            "errorType": "TECHNICAL",
+            "exceptionDetails": [
+              {
+                "code": "MB0008",
+                "component": "MB.CardInqV2",
+                "description": "Codigo invalido para el canal"
+              }
+            ],
+            "properties": {}
+          }
+        }
+      ]
+    }
+  }
+}

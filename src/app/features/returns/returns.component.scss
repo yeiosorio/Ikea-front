@@ -1,0 +1,113 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+$side-margin: 87%;
+
+.container-home-app {
+    .content-home {
+        padding: 0 0 0 80px;
+        background-color: $colour-bg-alternative;
+        min-height: 100vh;
+        .block-body {
+            width: $side-margin;
+            margin: 0 auto 0 auto;
+            max-width: 1400px;
+            .content {
+                width: 93%;
+                .message-step1-fo {
+                    margin: 10px 0px 22px 0px;
+                }
+                .content__section {
+                    min-height: 474px;
+                    background-color: white;
+                    width: 100%;
+                    margin: 0px 16px 36px 0px;
+                    padding: 20px 0 16px;
+                    display: inline-block;
+                    .title-products{
+                        font-size: 24px;
+                        line-height: 145%;
+                        color: #111111;
+                        padding: 16px 26px;
+                        margin-bottom: 26px;
+                    }
+                    .header-action-list{
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0 26px 0 26px;
+						.text-action-list{
+                            font-size: 14px;
+                            line-height: 1.5;
+                            color: #111111;
+                        }
+                    }
+                    .action-list.action-list--regular {
+                        padding: 16px 26px;
+                        .action-list-item{
+                            &:nth-child(1){
+                                border-top: 1px solid #dfdfdf;
+                              
+                            }
+                            .action-list-item__action{
+                                cursor: auto;
+                                .action-list-item__label-container{
+                                    .action-list-item__label{
+                                        font-size: 16px;
+                                        line-height: 1.5;
+                                        color: #111111;
+                                    }
+                                    p{
+                                        font-size: 14px;
+                                        line-height: 1.5;
+                                        color: #111111;
+                                        margin: 0 0 2px 0;
+                                    }
+                                }
+                                .action-list-item__label-number{
+                                    font-size: 14px;
+                                    line-height: 1.5;
+                                    color: #111111;
+                                }
+                            }
+                        }
+                        .action-list-item:hover .action-list-item__label {
+                            text-decoration: none;
+                        }
+                    }
+                }
+              
+            }
+        }
+        .block-header {
+            background-color: white;
+            min-height: 60px;
+            .header-content {
+                width: $side-margin;
+                margin: 0 auto 0 auto;
+                max-width: 1400px;
+                p {
+                    font-size: 16px;
+                    margin: 30px 0px 30px 0px;
+                }
+                .header-content__row{
+                    display: flex;
+                    justify-content: space-between;
+                    .header-content__title {
+                        font-size: 2.2rem;
+                        padding-bottom: 10px;
+                        margin-top: 58px;
+                    }
+                    .header-btns{
+                        padding-bottom: 16px;
+                        .btn{
+                            .btn__inner{
+                                .btn__label{}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

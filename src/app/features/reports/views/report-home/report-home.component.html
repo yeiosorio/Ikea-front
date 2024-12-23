@@ -1,0 +1,32 @@
+
+<div class="block-body">
+    <div class="container-dashboard">
+        <h1>Reportes</h1>
+        <ul>
+            <li class="card-dashboard">
+                <div class="content-card">
+                    <svg class="svg-icon" focusable="false" aria-hidden="true">
+                    <use href="assets/svg/skapa.svg#box-cancel"></use>
+                    </svg>
+                    <button [routerLink]="'/cancellation/list'" type="button" class="btn btn--secondary">
+                        <span class="btn__inner">
+                            <span class="btn__label">Solicitud de cancelación</span>
+                        </span>
+                    </button>
+                </div>
+            </li>
+            <li class="card-dashboard">
+                <div class="content-card">
+                    <svg class="svg-icon" focusable="false" aria-hidden="true">
+                    <use href="assets/svg/skapa.svg#warning-triangle"></use>
+                    </svg>
+                    <button [routerLink]="'/fraud/list'" type="button" class="btn btn--secondary">
+                        <span class="btn__inner">
+                            <span class="btn__label">Órdenes Cybersource</span>
+                        </span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

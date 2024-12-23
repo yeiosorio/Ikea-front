@@ -1,0 +1,20 @@
+<div class="container-box-message" *ngIf="messageObject">
+    <div [ngClass]="[messageObject?.center ? '' : 'left-box-message']" class="content-box-message">
+        <div *ngIf="messageObject?.icons" class="block-image">
+            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#drill"></use>
+            </svg>
+            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#wrench"></use>
+            </svg>
+            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#ruler"></use>
+            </svg>
+        </div>
+        <h4 class="message">{{messageObject.message}}</h4>
+        <p [innerHTML]="messageObject.detail" class="detail"></p>
+        <button *ngIf="messageObject?.button" (click)="pageReload()" type="button" class="btn btn--primary">
+            <span class="btn__inner"><span class="btn__label">Reintentar</span></span>
+        </button>
+    </div>
+</div>

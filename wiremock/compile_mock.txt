@@ -1,0 +1,2 @@
+-> cd wiremock
+-> java -jar wiremock-standalone.jar

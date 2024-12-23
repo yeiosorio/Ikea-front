@@ -1,0 +1,50 @@
+
+<section class="container-home-app">
+	<div class="content-home">
+		<app-sk-main-menu></app-sk-main-menu>
+		<div class="block-header">
+			<div class="header-content">
+				<div class="header-content__row">
+					<h1 class="header-content__title">Solicitud de devolución</h1>
+				</div>
+			</div>
+		</div>
+		<div class="block-body">
+			<div class="content m-t-16">
+                <app-stepper></app-stepper>
+                <div 
+                [ngClass]="{'inline-message--closed': message}"
+                class="inline-message inline-message--cautionary message-step1-fo">
+                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon inline-message__icon" aria-hidden="true">
+                    <path d="M11.004 14.134h2v-6h-2v6zM12.004 15.634a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.115 20.418l10-19h1.77l10 19L22 21.884H2l-.885-1.466zm2.542-.534h16.687L12 4.03 3.657 19.884z"></path>
+                    </svg>
+                    <div>
+                        <p class="inline-message__title">Importante</p>
+                        <span class="inline-message__body">
+                            Recuerda chequear los motivos de la devolución y las condiciones del producto. 
+                        </span>
+                    </div>
+                    <button (click)="message = true" type="button" class="btn btn--small btn--xsmall btn--icon-tertiary inline-message__close-button">
+                        <span class="btn__inner">
+                            <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                <path 
+                                    fill-rule="evenodd" 
+                                    clip-rule="evenodd" 
+                                    d="m12.0006 13.4148 2.8283 2.8283 1.4142-1.4142-2.8283-2.8283 2.8283-2.8283-1.4142-1.4142-2.8283 2.8283L9.172 7.7578 7.7578 9.172l2.8286 2.8286-2.8286 2.8285 1.4142 1.4143 2.8286-2.8286z">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+				<article class="content__section section-border ">
+                    <router-outlet></router-outlet>
+				</article>
+			
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<app-session-inactivity></app-session-inactivity>

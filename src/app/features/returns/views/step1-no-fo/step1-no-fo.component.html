@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="step1-fo content">
+        <div class="step1-fo__header">
+            <div class="step__indicator">1</div>
+            <p>Datos del cliente</p>
+        </div>
+        <form [formGroup]="dataClientForm">
+            <div class="step1-fo__name">
+                <div class="form-field ">
+                    <div class="input-field label-wrapper label-wrapper--text-input">
+                        <label for="name-id" class="" title="Nombre">Nombre</label>
+                        <div class="input-field__wrapper">
+                            <input formControlName="name" type="text" id="name-id" inputMode="text" aria-required="false" />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__type-dni">
+                <div class="form-field">
+                    <fieldset role="group" class="radio-button-group">
+                        <div class="radio radio--subtle">
+                            <input formControlName="typeDni" (change)="setTypeId($event)" type="radio" value="RUT" id="radioButton-dni-1" />
+                            <span class="radio__symbol"></span>
+                            <span class="radio__label">
+                                <label for="radioButton-dni-1" class="">RUT</label>
+                            </span>
+                        </div>
+                        <div class="radio radio--subtle">
+                            <input formControlName="typeDni" (change)="setTypeId($event)" type="radio" value="passport" id="radioButton-dni-2" />
+                            <span class="radio__symbol"></span>
+                            <span class="radio__label">
+                                <label for="radioButton-dni-2" class="">Pasaporte</label>
+                            </span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="step1-fo__dni">
+                <div class="form-field" [ngClass]="[!digitVerified ? 'form-field--error' : '']">
+                    <div class="input-field label-wrapper label-wrapper--text-input" [ngClass]="[!digitVerified ? 'input-field--error' : '']">
+                        <label for="dni-id" class="" title="Documento">Nº de documento</label>
+                        <div class="input-field__wrapper">
+                            <input 
+                              formControlName="dni" 
+                              (blur)="validateRut()" 
+                              (keyup)="dotsSeparate()" 
+                              type="text" id="dni-id" 
+                              aria-required="false"
+                              maxlength="12"
+                            />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                    <div class="form-field__content" *ngIf="!digitVerified">
+                        <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                            <span class="form-field__icon-wrapper">
+                                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                <path 
+                                d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                </svg>
+                            </span>
+                            <span class="form-field__message">Ingresa un nº de documento válido.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__email">
+                <div class="form-field" [ngClass]="[dataClientForm.get('email')?.errors && dataClientForm.get('email')?.touched ? 'form-field--error' : '']">
+                    <div class="input-field label-wrapper label-wrapper--text-input" 
+                    [ngClass]="[dataClientForm.get('email')?.errors && dataClientForm.get('email')?.touched ? 'input-field--error' : '']">
+                        <label for="email-id" class="" title="Documento">Correo electrónico</label>
+                        <div class="input-field__wrapper">
+                            <input formControlName="email" type="text" id="email-id" aria-required="false" />
+                            <span class="input-field__border"></span>
+                        </div>
+                    </div>
+                    <div class="form-field__content" *ngIf="dataClientForm.get('email')?.errors && dataClientForm.get('email')?.touched">
+                        <span id="error-msg-id" aria-hidden="false" class="form-field__message-wrapper" type="error">
+                            <span class="form-field__icon-wrapper">
+                                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon form-field__icon" aria-hidden="true">
+                                <path 
+                                d="M12.9482 13.1025h-2.0035v-6h2l.0035 6zm-2.25 2.75c0-.6903.5597-1.25 1.25-1.25.6904 0 1.25.5597 1.25 1.25 0 .6904-.5596 1.25-1.25 1.25-.6903 0-1.25-.5596-1.25-1.25z"></path>
+                                </svg>
+                            </span>
+                            <span class="form-field__message">Ingresa un correo electrónico válido.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="step1-fo__btns">
+                <div class="cancel">
+                    <button (click)="visibleModal = true" aria-disabled="false" type="button" class="btn btn--tertiary">
+                        <span class="btn__inner">
+                            <span class="btn__label">Cancelar solicitud</span>
+                        </span>
+                    </button>
+                </div>
+                <div class="nextStep">
+                    <button [disabled]="!digitVerified || dataClientForm.invalid" (click)="nextStep()" aria-disabled="false" type="button" class="btn trailing-icon btn--secondary">
+                        <span class="btn__inner">
+                            <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z">
+                                </path>
+                            </svg>
+                            <span class="btn__label">Siguiente</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-sk-modal-return-cancel [(visible)]="visibleModal"></app-sk-modal-return-cancel>
+
+

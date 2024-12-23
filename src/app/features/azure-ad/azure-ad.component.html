@@ -1,0 +1,76 @@
+<section class="container-main-client-login">
+    <div class="content-login-client">
+
+        <div class="content-login">
+            <div class="container-login">
+                
+                <div class="img-ikea1"></div>
+    
+                <div class="login-client-form">
+
+                    <div class="img-ikea2">
+                        <img src="/assets/img/ikea-png.png" alt="">
+                    </div>
+
+                    <div class="text-login">
+                        <h1>
+                            Bienvenido al Centro de Atención al Cliente
+                        </h1>
+                    </div>
+
+                    <div class="sub-text-login">
+                        <h3>
+                            Seguimiento, cancelación y devolución de Órdenes
+                        </h3>
+                    </div>
+
+                    <div class="parraf-login">
+                        <p>
+                            
+                        </p>
+                    </div>
+                    
+                    <form>
+
+    
+                        <!-- <div class="text-link">
+                            <a [routerLink]="[]" (click)="visible = true;">¿Olvidaste tu contraseña?</a>
+                        </div> -->
+    
+                        <button type="button" class="btn btn--primary"
+                            (click)="btnLogin()"
+                            [attr.disabled]="false ? '' : null">
+                            <span class="btn__inner">
+                                <span class="btn__label">
+                                    Inicia sesión con tu cuenta Microsoft
+                                </span>
+                            </span>
+                        </button>
+                    </form>
+                    
+                    <div class="footer-system">
+                        <p>
+                            © Inter IKEA Systems B.V. 2021
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- <app-sk-toast
+    [isOpen]="errorLoginMessage"
+    [text]="'Al parecer hay algún error con los datos ingresados. Verifica que sean los correctos.'"
+    [actionButtonText]="'Reintentar'"
+    (actionClick)="errorLoginMessage = false;"
+></app-sk-toast>
+
+<app-sk-modal-prompt
+    [(visible)]="visible"
+    [textTitle]="'¿Olvidaste tu contraseña?'"
+    [textSubtitle]="'Para obtener una nueva contraseña, comunícate con el Centro de Recuperación de contraseñas al <a class=\'link link-skapa\' href=\'tel:+56 2 26667777\'>+56 2 26667777</a>'"
+    [textBtnPrimary]="'Entendido'"
+></app-sk-modal-prompt> -->

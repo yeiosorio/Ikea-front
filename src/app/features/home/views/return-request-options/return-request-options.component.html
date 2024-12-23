@@ -1,0 +1,130 @@
+<section class="container-home-app">
+    <div class="content-home">
+      <app-sk-main-menu></app-sk-main-menu>
+      <div class="block-body">
+        <button [routerLink]="['/home']" aria-disabled="false" type="button" class="btn btn--small leading-icon btn--secondary btn-back">
+          <span class="btn__inner">
+              <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                <use href="assets/svg/skapa.svg#arrow-left"></use>
+              </svg>
+              <span class="btn__label">Volver</span>
+          </span>
+        </button>
+        <div class="container-dashboard">
+          <h1>Solicitud de devolución de productos</h1>
+          <ul>
+            <li class="card-dashboard">
+              <div class="content-card">
+               <div class="card-dashboard__title">
+                   <p>Con método de entrega asociado</p>
+               </div>
+               <div class="card-dashboard__description">
+                   <p>Compras con servicio de despacho a domicilio o click & collect.</p>
+               </div>
+                <button (click)="visible = true; autofocus();" aria-disabled="false" type="button" class="btn trailing-icon btn--small btn--primary btn-go-order">
+                    <span class="btn__inner">
+                      <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"
+                        ></path>
+                      </svg>
+                      <span class="btn__label">Ingresar</span>
+                    </span>
+                </button>
+                
+              </div>
+            </li>
+            <li class="card-dashboard">
+                <div class="content-card">
+                 <div class="card-dashboard__title">
+                     <p>Sin método de entrega asociado</p>
+                 </div>
+                 <div class="card-dashboard__description">
+                     <p>Compras en tienda física, donde el cliente llevó sus productos personalmente (cash & carry).</p>
+                 </div>
+                  <button [routerLink]="['/home/no-fullfilment-order']" aria-disabled="false" type="button" class="btn trailing-icon btn--small btn--primary btn-go-order">
+                      <span class="btn__inner">
+                        <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="m20.0008 12.0001-8-8.001-1.4143 1.414L16.1727 11H4v2h12.1723l-5.5868 5.5866 1.4141 1.4142 8.0012-8.0007z"
+                          ></path>
+                        </svg>
+                        <span class="btn__label">Ingresar</span>
+                      </span>
+                  </button>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <app-sk-modal-sheets [(visible)]="visible">
+        <div class="modal-sheets" slot="content-body">
+          <br style="margin-bottom: 1em" />
+          <h3>Búsqueda por Nº de Orden de compra</h3>
+          <p>Para hacer seguimiento o cancelar una Orden de compra, ingresa el Nº de Orden del cliente:</p>
+          <div 
+            [formGroup]="orderForm" 
+            [ngClass]="{'form-field': true,'form-field--error': invalid}"
+          >
+            <div
+              class="input-field input-field--prefixed label-wrapper label-wrapper--text-input"
+                [ngClass]="{'input-field--labelled': typed,'input-field--error': invalid}"
+            >
+              <label for="example-id" class="" title="Nº de Orden de compra">Nº de Orden de compra</label>
+              <div class="input-field__wrapper">
+                <input
+                  #orderSearch
+                  class="orderSearch"
+                  (keyup.enter)="addInput()"
+                  (keyup)="ableButton()"
+                  (blur)="isValid()"
+                  aria-required="false"
+                  formControlName="orderId"
+                  maxlength="10"
+                />
+                <span class="input-field__border"></span>
+              </div>
+            </div>
+            <div class="form-field__content">
+              <span
+                id="helper-msg-id"
+                aria-hidden="false"
+                class="form-field__message-wrapper"
+                type="error"
+              >
+                <span class="form-field__icon-wrapper">
+                  <svg class="svg-icon form-field__icon" focusable="false" aria-hidden="true">
+                    <use href="assets/svg/skapa.svg#notice-small"></use>
+                  </svg>
+                </span>
+                <span *ngIf="invalid" class="form-field__message">Ingresa un número de Orden válido</span>
+              </span>
+            </div>
+          </div>
+          <button type="button" class="btn btn--primary"
+            (click)="addInput()" 
+            [attr.disabled]="disableButton">
+            <span class="btn__inner">
+                <span class="btn__label">Buscar Orden</span> 
+            </span>
+          </button>
+          <div *ngIf="orderNotFoundMsg" aria-hidden="false" class="inline-message inline-message--cautionary orderNotFound">
+            <svg class="svg-icon inline-message__icon" focusable="false" aria-hidden="true">
+              <use href="assets/svg/skapa.svg#warning-triangle"></use>
+            </svg>
+            <div>
+              <p class="inline-message__title">El número de Orden ingresado no existe</p>
+              <span class="inline-message__body">
+                Por favor verifica que el número sea el correcto e inténtalo nuevamente.
+              </span>
+            </div>
+          </div>
+        </div>
+      </app-sk-modal-sheets>
+    </div>
+  </section>
+  

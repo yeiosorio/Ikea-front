@@ -1,0 +1,175 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+.container-filter{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: $colour-bg-default;
+    z-index: -10;
+    
+    transition: all 200ms $ease-exit;
+    transition-delay: 200ms;
+    &.active-menu{
+        background-color: $colour-backdrop-light;
+        z-index: 150;
+
+        transition: all 100ms $ease-enter;
+        transition-delay: 0ms;
+        .content-filter{
+            .container-block-filter{
+                top: 0;
+                right: 0;
+
+                transition: all 200ms $ease-enter;
+                @include respondto(xs) {
+                    top: 23px;
+                    right: 0;
+                }
+                @include respondto(sm) {}
+                @include respondto(md) {}
+                @include respondto(lg) {}
+            }
+        }
+    }
+    .content-filter{
+        position: fixed;
+        right: 0;
+        top: 0;
+        @include respondto(xs) {
+            width: 100%;
+        }
+        @include respondto(sm) {}
+        @include respondto(md) {}
+        @include respondto(lg) {}
+        .container-block-filter{
+            position: absolute;
+
+            right: -480px;
+            top: 0;
+            
+            width: 480px;
+            max-width: 480px;
+            height: 100vh;
+            background-color: $colour-bg-default;
+            transition: all 200ms $ease-exit;
+
+            display: flex;
+            @include respondto(xs) {
+                width: 100%;
+                max-width: 100%;
+                top: 100vh;
+                right: 0;
+                height: calc(100vh - 23px);
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+            @include respondto(sm) {}
+            @include respondto(md) {}
+            @include respondto(lg) {}
+            .content-block-filter{
+                position: relative;
+                height: 100%;
+                width: 100%;
+                padding: 0 0 105px 0;
+                @include respondto(xs) {
+                    padding: 0 0 176px 0;
+                }
+                @include respondto(sm) {}
+                @include respondto(md) {}
+                @include respondto(lg) {}
+                .container-aux{
+                    overflow-y: auto;
+                    height: 100%;
+                    .block-head{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 88px;
+                        position: relative;
+                        margin-bottom: 30px;
+                        @include respondto(xs) {
+                            height: 58px;
+                        }
+                        @include respondto(sm) {}
+                        @include respondto(md) {}
+                        @include respondto(lg) {}
+                        h1{
+                            font-size: 16px;
+                            line-height: 24px;
+                            color: $colour-text-dark;
+                        }
+                        .skapa-close{
+                            position: absolute;
+                            top: 50%;
+                            right: 30px;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            svg.svg-icon{}
+                        }
+                    }
+                    .block-info{
+                        margin-bottom: 40px;
+                        padding: 0 48px 0 48px;
+                        @include respondto(xs) {
+                            padding: 0 26px 0 26px;
+                        }
+                        @include respondto(sm) {}
+                        @include respondto(md) {}
+                        @include respondto(lg) {}
+                        .container-group-filter{
+                            margin-bottom: 33px;
+                            &:nth-child(1){
+                                border-bottom: 1px solid $colour-border-light;
+                            }
+                            h3{
+                                font-size: 14px;
+                                font-weight: 700;
+                                line-height: 22px;
+                                color: $colour-text-dark;
+                                margin-bottom: 33px;
+                            }
+                            .container-list-info{
+                                .form-field{
+                                    margin-bottom: 48px;
+                                }
+                            }
+                        }
+                    }
+                    .block-btn{
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        border-top: 1px solid $colour-border-light;
+                        display: flex;
+                        padding: 24px 24px 24px 24px;
+                        background-color: $colour-bg-default;
+                        @include respondto(xs) {
+                            flex-direction: column-reverse;
+                            padding: 24px 24px 9px 24px;
+                        }
+                        @include respondto(sm) {}
+                        @include respondto(md) {}
+                        @include respondto(lg) {}
+                        button.btn{
+                            margin: 0 7px 0 7px;
+                            @include respondto(xs) {
+                                margin: 0 0 15px 0;
+                            }
+                            @include respondto(sm) {}
+                            @include respondto(md) {}
+                            @include respondto(lg) {}
+                            .btn__inner{
+                                .btn__label{}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,112 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+
+.container-main-client-login{
+    width: 100%;
+    .content-login-client{
+        width: 100%;
+        .content-login{
+            // width: 100%;
+            // position: center;
+            .container-login{
+                display: flex;
+                .img-ikea1{
+                    min-height: 100vh;
+                    flex: 1;
+                    background-image: url('/assets/img/PH170213.png');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: top center;
+                    @include respondto(xs) {
+                        display: none;
+                    }
+                    @include respondto(sm) {
+                        display: none;
+                    }
+                    @include respondto(md) {}
+                    @include respondto(lg) {}
+                    @include respondto(xlg) {}
+                }
+
+                .login-client-form{
+                    display: flex;
+                    flex-direction: column;
+                    // align-items: center;
+                    width: 512px;
+                    max-width: 100vw;
+                    min-height: 100vh;
+                    padding: 65px 40px 40px 40px;
+                    @include respondto(xs) {
+                        width: 100%;
+                    }
+                    @include respondto(sm) {
+                        width: 100%;
+                    }
+                    @include respondto(md) {}
+                    @include respondto(lg) {}
+                    @include respondto(xlg) {}
+                    .img-ikea2{
+                        img{
+                        }
+                    }
+                    .text-login{
+                        margin-top: 50px;
+                        margin-bottom: 40px;
+                        h1{
+                            // font-family: --ikea-font;
+                            font-size: 32px;
+                            color: #111111;
+                        }
+                    }
+                    .sub-text-login{
+
+                        h3{
+                            font-size: 24px;
+                            color: #484848;
+                        }
+                    }
+                    .parraf-login{
+                        margin-top: 40px;
+                        margin-bottom: 40px;
+                        p{
+                            // font-family: Noto IKEA Latin;
+                            font-size: 16px;
+                        }
+                    }
+                    .text-link{
+                        a{
+                            font-size: 14px;
+                            text-decoration-line: underline;
+                            color: $colour-primary-accent;
+                            &:hover,
+                            &:active{
+                                color: $colour-primary-accent-dark;
+                            }
+                        }
+                    }
+                    .button-disabled{
+                        margin-top: 64px;
+                        span{
+                            .btn__label{
+                                
+                            }
+                        }
+                    }
+
+                    .footer-system{
+                        p{
+                            color: #767676;
+                            font-size: 11px;
+                            margin-top: 80px;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+

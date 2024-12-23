@@ -1,0 +1,8 @@
+<router-outlet></router-outlet>
+
+<app-sk-toast
+    [isOpen]="_loginService.getModalLoginAccess()"
+    [text]="'Usuario no autorizado.'"
+    [actionButtonText]="'Entendido'"
+    (actionClick)="_loginService.setModalLoginAccess(false)"
+></app-sk-toast>

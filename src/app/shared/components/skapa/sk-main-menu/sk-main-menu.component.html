@@ -1,0 +1,56 @@
+<div class="block-lateral-menu">
+    <div class="container-lateral-menu">
+        <div class="content-lateral-menu">
+            <div class="block-top">
+                <img src="assets/img/logo-white.png" alt="">
+            </div>
+            <div class="block-center">
+                <ul>
+                    <!-- <li class="item-menu active-menu"> -->
+                    <li routerLinkActive="active-menu" class="item-menu">
+                        <a [routerLink]="'/home'">
+                            <div class="link-item">
+                                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#home"></use>
+                                </svg>
+                                <span>Inicio</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active-menu" class="item-menu">
+                        <a [routerLink]="'/reports/access'">
+                            <div class="link-item">
+                                <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                    <use href="assets/svg/skapa.svg#data-chart"></use>
+                                </svg>
+                                <span>Reportes</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="block-footer">
+                <!-- <div class="profile">
+                    <img src="assets/img/avatar.png" alt="">
+                    <p>VF</p>
+                </div> -->
+            </div>
+        </div>
+        <div class="logout">
+            <button (click)="logout()" type="button" class="btn btn--icon-emphasised">
+                <span class="btn__inner">
+                    <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                        <use href="assets/svg/skapa.svg#arrow-right-from-base"></use>
+                    </svg>
+                </span>
+            </button>
+        </div>
+        <!-- <button type="button" class="btn btn--small btn--icon-emphasised btn-compress">
+            <span class="btn__inner">
+                <svg focusable="false" viewBox="0 0 24 24" class="svg-icon btn__icon" aria-hidden="true">
+                    <use href="assets/svg/skapa.svg#chevron-right-small"></use>
+                </svg>
+            </span>
+        </button> -->
+    </div>
+</div>

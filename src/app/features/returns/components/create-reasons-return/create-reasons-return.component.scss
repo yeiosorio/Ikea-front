@@ -1,0 +1,280 @@
+@import "./default-theme/constants";
+@import "node_modules/@ingka/variables/style.scss";
+@import "./default-theme/mixins";
+
+
+
+
+.item-preview{
+  display: flex;
+  border-bottom: 1px solid $colour-border-light;
+  .item-preview__column{
+    display: flex;
+    height: 62px;
+    align-items: center;
+    &:nth-child(1){
+      width: 120px;
+    }
+    &:nth-child(2){
+      flex: 1;
+    }
+    &:nth-child(3){
+      width: 120px;
+      flex: none;
+      .return-total{
+        flex: 1;
+      }
+    }
+    >span{
+      color: $colour-text-dark;
+      padding: 0 7px 0 24px;
+    }
+    .return-total{
+      color: $colour-text-dark;
+    }
+    .btn-edit{
+      display: flex;
+      justify-content: center;
+      width: 40px;
+      .btn{
+        color: $colour-semantic-informative;
+        .btn__inner{
+          svg{}
+          .btn__label{}
+        }
+      }
+    }
+    .btn-delete{
+      display: flex;
+      justify-content: center;
+      width: 40px;
+      .btn{
+        color: $colour-icon-favourite;
+        .btn__inner{
+          svg{}
+          .btn__label{}
+        }
+      }
+    }
+  }
+}
+
+
+.item-return{
+  display: flex;
+  flex-direction: column;
+  background-color: $colour-bg-alternative;
+    // border-bottom: 1px solid $colour-border-dark;
+  border-bottom: 1px solid $colour-border-light;
+  .item-header{
+    display: flex;
+    align-items: center;
+    height: 83px;
+    border-bottom: 1px solid $colour-border-light;
+    position: relative;
+    .item-header-column{
+      display: flex;
+      align-items: center;
+      &:nth-child(1){
+        width: 168px;
+      }
+      &:nth-child(2){
+        flex: 1;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      &:nth-child(3){
+        width: 120px;
+        flex: none;
+        display: flex;
+        justify-content: center;
+      }
+      .content-sku{
+        display: flex;
+        padding-left: 24px;
+        >.form-field{
+          width: 94px;
+          margin: 0;
+          .input-field{
+              .input-field__wrapper{
+                  input{}
+                  .input-field__border{}
+              }
+          }
+        }
+      }
+      .content-magnifying-glass{
+        .btn{
+          .btn__inner{
+            svg{}
+            .btn__label{}
+          }
+        }
+      }
+      .item-name{
+        display: flex;
+        align-items: center;
+        text-align: left;
+        height: 48px;
+        border-radius: 4px;
+        background-color: white;
+        width: 100%;
+        border: 1px solid $colour-disabled-ui;
+        border-radius: 4px;
+        padding: 0 8px 0 8px;
+      }
+      >.form-field.input-total{
+        display: flex;
+        justify-content: flex-end;
+        margin: 0;
+        .input-field{
+          width: 60px;
+            .input-field__wrapper{
+                input{
+                  /* Chrome, Safari, Edge, Opera */
+                  &::-webkit-outer-spin-button,
+                  &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+
+                  /* Firefox */
+                  &[type=number] {
+                    -moz-appearance: textfield;
+                  }
+                }
+                .input-field__border{}
+            }
+        }
+        .btn-delete-item{
+          display: flex;
+          align-items: center;
+          margin: 0 0 0 10px;
+          .btn{
+            color: $colour-icon-favourite;
+            .btn__inner{
+              svg{}
+              .btn__label{}
+            }
+          }
+        }
+      }
+    }
+    .content-search{
+      // display: none;
+      position: absolute;
+      top: 65px;
+      left: 24px;
+      border: 1px solid $colour-border-light;
+      height: 90px;
+      width: 590px;
+      max-width: 92vw;
+      z-index: 20;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      padding: 5px 7px 5px 24px;
+      p{
+        cursor: pointer;
+        text-decoration: underline;
+        user-select: none;
+      }
+      .storybook-container{
+        width: 100%;
+        .storybook-readme-story{}
+      }
+    }
+  }
+  .item-body{
+    border-bottom: 1px solid $colour-border-dark;
+    .list-reason{
+      .header-reason{
+        display: flex;
+        align-items: center;
+        height: 48px;
+        border-bottom: 1px solid $colour-border-light;
+        .header-reason-column{
+          &:nth-child(1){
+            width: 100px;
+            display: flex;
+            justify-content: center;
+          }
+          &:nth-child(2){
+            flex: 11;
+          }
+          &:nth-child(3){
+            flex: 11;
+          }
+          &:nth-child(4){
+            flex: 12;
+          }
+        }
+      }
+      .body-reason{
+        display: flex;
+        align-items: center;
+        .item-reason{
+          display: flex;
+          align-items: center;
+          height: 88px;
+          border-bottom: 1px solid $colour-border-light;
+          &:nth-child(1){
+            width: 100px;
+            justify-content: center;
+            .form-field{
+              flex: none;
+              margin-left: 0;
+              margin-right: 0;
+              width: 76px;
+            }
+          }
+          &:nth-child(2){
+            flex: 11;
+          }
+          &:nth-child(3){
+            flex: 11;
+          }
+          &:nth-child(4){
+            flex: 12;
+          }
+          .form-field{
+            flex: 1;
+            margin-right: 10px;
+            margin-bottom: 0 !important;
+            .select{
+              &.select--error{}
+              label{}
+              .select__wrapper{
+                select{
+                  option{}
+                }
+                .svg-icon{}
+                .select__border{}
+              }
+            }
+          }
+          .icon-action{
+            width: 40px;
+            .btn{
+              &.btn-trash{
+                color: $colour-icon-favourite;
+                .btn__inner{
+                  .svg-icon{
+                    use{}
+                  }
+                  .btn__label{}
+                }
+              }
+              .btn__inner{
+                .svg-icon{
+                  use{}
+                }
+                .btn__label{}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

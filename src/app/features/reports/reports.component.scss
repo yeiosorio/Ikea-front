@@ -1,0 +1,12 @@
+@import './default-theme/constants';
+@import 'node_modules/@ingka/variables/style.scss';
+@import './default-theme/mixins';
+
+.container-home-app{
+    .content-home{
+        padding: 0 0 0 80px;
+        background-color: $colour-bg-alternative;
+        min-height: 100vh;
+        
+    }
+}

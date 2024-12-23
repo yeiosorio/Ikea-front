@@ -1,0 +1,84 @@
+apiVersion:  apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "chart.selectorLabels" . | nindent 6 }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        {{- include "chart.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: {{ .Release.Name }}
+        image: "{{ .Values.image.repository }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: {{ .Values.networking.containerPort }}
+          protocol: {{ .Values.networking.protocol }}
+        envFrom:
+        {{- if .Values.configmap }}
+        - configMapRef:
+            name: {{ .Release.Name }}-configmap
+        {{- end }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.livenessProbe.path }}  
+            port: {{ .Values.networking.containerPort }}  
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }} 
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }} 
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }} 
+        readinessProbe: #probes to know when to restart a container
+          httpGet:
+            path: {{ .Values.readinessProbe.path }} 
+            port: {{ .Values.networking.containerPort }}
+            scheme: HTTP  # Scheme to use for connecting to the host
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}  #Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1.
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        volumeMounts:
+        - name: pubsub-sa
+          mountPath: "/var/secrets/google"
+          readOnly: true
+      volumes:
+      - name: pubsub-sa
+        secret:
+          secretName: {{ .Release.Name }}-pubsub-service-account
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-hpa
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  maxReplicas: {{ .Values.horizontalPodAutoscaler.maxReplicas }}
+  minReplicas: {{ .Values.horizontalPodAutoscaler.minReplicas }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}
+  targetCPUUtilizationPercentage: {{ .Values.horizontalPodAutoscaler.targetCPUUtilizationPercentage }}
+

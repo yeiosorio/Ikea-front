@@ -1,0 +1,101 @@
+@import "./default-theme/constants";
+@import "node_modules/@ingka/variables/style.scss";
+@import "./default-theme/mixins";
+
+.container-flex.cancelledAlign {
+  display: flex;
+  justify-content: center;
+  margin: 20px 8px 50px 14px;
+}
+.container-flex {
+  display: flex;
+  justify-content: center;
+  margin: 37px 8px 59px 14px;
+
+  .delivery-item-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 285px;
+    height: 80px;
+    color: white;
+    flex: none;
+    padding: 14px 24px;
+    margin: 0 13px 0 0;
+    .delivery-item__title {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      line-height: 162.5%;
+    }
+    .delivery-item__caption {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+
+  .delivery-item.muted {
+    border: 1px solid #d7d7d7;
+  }
+  
+  .delivery-item.widthRegular {
+    width: 138px!important;
+  }
+
+  .delivery-item {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 21px 14px;
+    border: 1px solid #929292;
+    width: 175px;
+    height: 80px;
+    left: 320.5px;
+    color: #484848;
+    margin: 0 13px 0 0;
+
+    .delivery-item__title {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      line-height: 157.5%;
+    }
+    .delivery-item__caption {
+      color: #111111;
+      font-size: 16px;
+      line-height: 150%;
+      font-weight: bold;
+    }
+    .delivery-item__caption.muted {
+      color: #dedede;
+    }
+    .delivery-item__title.muted {
+      color: #dedede;
+    }
+  }
+
+  .status-current-bg {
+    background-color: $colour-bg-accent;
+  }
+  .status-reject-bg {
+    background-color: #e00751;
+  }
+  .status-success-bg {
+    background-color: #0a8a00;
+  }
+  .status-delay-bg {
+    background-color: #ffa524;
+  }
+
+  .delivery-item-main.pending-text {
+    color: #2c2c2c;
+    padding: 14px 16px;
+  }
+
+  .pending-text .delivery-item__caption {
+    font-size: 22px;
+  }
+}

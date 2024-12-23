@@ -1,0 +1,89 @@
+<div (click)="closeDetail()"
+    [ngClass]="[controlsService.openDetailOrden ? 'active-menu' : '']" class="container-detail">
+    <div class="content-detail">
+        <div (click)="stopPropagation($event)" class="container-block-detail">
+            <div class="content-block-detail">
+                <div class="container-aux">
+                    <div class="block-head">
+                        <!-- <h1>{{ serviceId }}</h1> -->
+                        <div (click)="closeDetail()" class="skapa-close">
+                            <svg class="svg-icon" focusable="false" aria-hidden="true">
+                                <use href="assets/svg/skapa.svg#cross"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="block-edition">
+                        <h3 class="sub-title">Estado logístico de los paquetes</h3>
+                        <p>Sumatoria de ítems empaquetados: {{itemsTotal}}</p>
+                    </div>
+                    <div class="block-info">
+                        <div class="head-info">
+                            <div class="text-info text--number">#</div>
+                            <div class="text-info text--date">Fecha</div>
+                            <div class="text-info text--hour">Hora</div>
+                            <div class="text-info text--state">Estado</div>
+                        </div>
+                        <ul class="accordion accordion--padded">
+                            <li 
+                                *ngFor="let item of packagesOrder; let i = index"
+                                [ngClass]="[accIsOpen[i] ? 'accordion__item--active' : '', 'accordion__item']"
+                                [id]="'accordion_00'+i"
+                            >
+                                <div role="heading" aria-level="2">
+                                    <button (click)="accIsOpen[i] = !accIsOpen[i]" type="button"
+                                        class="accordion__heading accordion-item-header"
+                                        [attr.aria-controls]="'SEC_accordion_00'+i" [attr.aria-expanded]="accIsOpen[i]">
+                                        <span class="accordion-item-header__title-wrapper">
+                                            <!-- <span class="accordion-item-header__title">Datos de servicio</span> -->
+                                            <div class="accordion-item-header__list-title">
+                                                <div class="text-title">{{i+1}}</div>
+                                                <div class="text-title">{{item.updateDate | date:'dd/MM/yyyy'}}</div>
+                                                <div class="text-title text--hour">{{item.updateDate | date:'hh:mm:ss'}}</div>
+                                                <div class="text-title text--status" [ngStyle]="{color: (item.alertCode === null) ? '' : '#E00751'}">{{item.stateName}}</div>
+                                            </div>
+                                        </span>
+                                        <svg focusable="false" viewBox="0 0 24 24"
+                                            [ngClass]="[accIsOpen[i] ? 'svg-icon--rotate-180' : '']"
+                                            class="svg-icon accordion-item-header__icon" aria-hidden="true">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12 15.6L6.215 9.815 7.629 8.4 12 12.771l4.372-4.37 1.414 1.414L12 15.6z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div [id]="'SEC_accordion_00'+i" class="accordion__content"
+                                    [attr.aria-labelledby]="'accordion_00'+i" role="region">
+                                    <div class="container-list-info">
+                                        <div class="header-action-list">
+                                            <div class="text-action-list">Productos</div>
+                                            <div class="text-action-list">Cantidad</div>
+                                        </div>
+                                        <div>
+                                            <ul class="action-list action-list--regular">
+                                                <li *ngFor="let itemProd of item.products" class="action-list-item">
+                                                    <div class="action-list-item__action">
+                                                        <span class="action-list-item__label-container">
+                                                            <span class="action-list-item__label">{{itemProd.sku}}</span>
+                                                            <p *ngIf="itemProd.name">{{itemProd.name}}</p>
+                                                            <p *ngIf="itemProd.detail">{{itemProd.detail}}</p>
+                                                            <p 
+                                                                [ngStyle]="{color: (item.alertCode === null) ? '' : '#E00751'}"
+                                                                *ngIf="item.alertCode !== null">
+                                                                {{getPartialDeliveryMessage(item.alertCode)}}
+                                                            </p>
+                                                        </span>
+                                                        <div class="action-list-item__label-number">{{itemProd.quantity}}</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

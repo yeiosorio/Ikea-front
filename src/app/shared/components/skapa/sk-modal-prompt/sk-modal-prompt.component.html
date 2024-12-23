@@ -1,0 +1,22 @@
+<div class="modal-wrapper" [ngClass]="[visible ? 'modal-wrapper--open' : 'modal-wrapper--close']" tabindex="-1">
+    <div class="modal-wrapper__backdrop modal-wrapper__backdrop--dark"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="1" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+    <div *ngIf="visible" data-focus-lock-disabled="false">
+        <div aria-label="Accessibility header for a modal" class="prompt prompt--enter" aria-modal="true" role="dialog"
+            tabindex="-1">
+            <div class="prompt__content-wrapper">
+                <div tabindex="0" class="prompt__content">
+                    <h2 class="prompt__heading">{{ textTitle }}</h2>
+                    <p [innerHTML]="textSubtitle"></p>
+                </div>
+                <div class="modal-footer modal-footer--borderless">
+                    <button (click)="modalClosed()" type="button" class="btn btn--primary">
+                        <span class="btn__inner"><span class="btn__label">{{ textBtnPrimary }}</span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="visible" data-focus-guard="true" tabindex="0" style="width: 1px; height: 0px; padding: 0px; overflow: hidden; position: fixed; top: 1px; left: 1px;"></div>
+</div>
